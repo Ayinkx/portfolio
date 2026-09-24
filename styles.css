@@ -279,12 +279,7 @@ ul { list-style: none; }
 
 /* ===================== Skills ===================== */
 .skills { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: start; }
-.skills__bars { display: flex; flex-direction: column; gap: 18px; }
-.bar { display: grid; grid-template-columns: 130px 1fr 44px; align-items: center; gap: 14px; }
-.bar__label { font-size: 0.92rem; color: var(--text); font-weight: 500; }
-.bar__track { height: 9px; border-radius: 20px; background: var(--surface-2); overflow: hidden; }
-.bar__fill { height: 100%; width: 0; border-radius: 20px; background: linear-gradient(90deg, var(--accent-2), var(--accent)); transition: width 1.2s cubic-bezier(.22,.61,.36,1); box-shadow: 0 0 16px -2px var(--accent); }
-.bar__pct { font-family: var(--font-code); font-size: 0.82rem; color: var(--muted); text-align: right; }
+.skills__bars { display: flex; flex-direction: column; gap: 24px; }
 
 .skills__tags { display: flex; flex-direction: column; gap: 24px; }
 .tag-group h3 { font-family: var(--font-head); font-size: 1rem; margin-bottom: 12px; color: var(--text); }
@@ -451,7 +446,6 @@ ul { list-style: none; }
 @media (max-width: 560px) {
   .projects { grid-template-columns: 1fr; }
   .about__cards { grid-template-columns: 1fr; }
-  .bar { grid-template-columns: 96px 1fr 40px; gap: 10px; }
   .container { padding: 0 18px; }
 }
 

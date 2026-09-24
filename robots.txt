@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ayinkx-portfolio.vercel.app/sitemap.xml
+Sitemap: https://portfolio-ayinkx.vercel.app/sitemap.xml

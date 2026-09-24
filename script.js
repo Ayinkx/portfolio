@@ -10,45 +10,16 @@ let PARTICLE_RGB = document.documentElement.getAttribute("data-theme") === "ligh
 /* -------------------- EDITABLE CONTENT -------------------- */
 
 const ROLES = [
-  "Python Developer",
   "Backend Developer",
+  "API & Automation Builder",
   "Open Source Contributor",
-  "Musician & Producer",
-  "Content Creator",
-  "Flask & REST API Enthusiast",
+  "Developer Tooling Builder",
 ];
 
 const PROJECTS = [
   {
-    title: "Flask REST API Boilerplate",
-    desc: "A minimal, clean and tested starting point for building production-ready REST APIs with Flask and pytest.",
-    icon: "fa-solid fa-pepper-hot",
-    category: "Backend",
-    tags: ["Python", "Flask", "REST API", "pytest"],
-    github: "https://github.com/Ayinkx/flask-rest-api-boilerplate",
-    demo: "",
-  },
-  {
-    title: "Todo CLI",
-    desc: "A simple, dependency-free command-line todo list written in pure Python — fast, portable and easy to extend.",
-    icon: "fa-solid fa-list-check",
-    category: "CLI",
-    tags: ["Python", "CLI", "Automation"],
-    github: "https://github.com/Ayinkx/todo-cli",
-    demo: "",
-  },
-  {
-    title: "Open Source Contributions",
-    desc: "Contributing to open-source Python and Stellar/Soroban projects — bug fixes, new features and collaboration.",
-    icon: "fa-solid fa-code-branch",
-    category: "Open Source",
-    tags: ["Open Source", "Collaboration", "Git"],
-    github: "https://github.com/Ayinkx?tab=repositories",
-    demo: "",
-  },
-  {
     title: "AI Code Assistant",
-    desc: "Open-source AI coding assistant with read-only Stellar/Soroban tooling — XDR & transaction decoding, RPC/Horizon inspection, contract scaffolds and a plugin system.",
+    desc: "An open-source AI coding assistant and developer tool focused on repository analysis, Stellar/Soroban development workflows, transaction and XDR inspection, RPC/Horizon tooling, contract scaffolding and extensible plugins.",
     icon: "fa-solid fa-robot",
     category: "AI",
     tags: ["Python", "AI", "Stellar", "Soroban"],
@@ -56,8 +27,17 @@ const PROJECTS = [
     demo: "",
   },
   {
+    title: "Social Autopilot",
+    desc: "A backend service for publishing and scheduling content across social platforms, built with FastAPI, SQL, APScheduler, OAuth integrations and Docker.",
+    icon: "fa-solid fa-share-nodes",
+    category: "Backend",
+    tags: ["Python", "FastAPI", "SQL", "Automation"],
+    github: "https://github.com/AyinkxLab/social-autopilot",
+    demo: "",
+  },
+  {
     title: "Soroban Security Scanner",
-    desc: "Deterministic security analysis for Stellar Soroban smart contracts and Rust projects — catching risky patterns before they ship.",
+    desc: "A developer and security tooling project for analyzing Stellar Soroban smart contracts and Rust projects — detecting risky patterns and surfacing issues before they ship.",
     icon: "fa-solid fa-shield-halved",
     category: "Security",
     tags: ["Rust", "Security", "Soroban", "Stellar"],
@@ -65,17 +45,8 @@ const PROJECTS = [
     demo: "",
   },
   {
-    title: "Social Autopilot",
-    desc: "Self-hosted MVP that publishes one post to many social platforms — Post Now or Schedule. FastAPI + SQLite + APScheduler, with a clearly-labelled Demo Mode.",
-    icon: "fa-solid fa-share-nodes",
-    category: "Backend",
-    tags: ["Python", "FastAPI", "SQLite", "Automation"],
-    github: "https://github.com/AyinkxLab/social-autopilot",
-    demo: "",
-  },
-  {
     title: "Stellar DevKit",
-    desc: "Developer infrastructure toolkit for Stellar and Soroban — RPC, XDR/SCVal inspection, fixtures, analysis and a CLI.",
+    desc: "Developer tooling for building and interacting with Stellar and Soroban applications — RPC, XDR/SCVal inspection, fixtures, analysis and a CLI.",
     icon: "fa-solid fa-toolbox",
     category: "Tooling",
     tags: ["Python", "Stellar", "Soroban", "CLI"],
@@ -84,11 +55,38 @@ const PROJECTS = [
   },
   {
     title: "Stellar Contract Platform",
-    desc: "Contract intelligence for Stellar and Soroban — inspection, interface analysis, compatibility and deployment verification.",
+    desc: "Contract intelligence for Stellar and Soroban development — inspection, interface analysis, compatibility checks and deployment verification.",
     icon: "fa-solid fa-cubes",
     category: "Tooling",
     tags: ["Rust", "Stellar", "Soroban", "Tooling"],
     github: "https://github.com/StellarFoundry/stellar-contract-platform",
+    demo: "",
+  },
+  {
+    title: "Flask REST API Boilerplate",
+    desc: "A reusable backend and API starter project built with Flask — blueprints, configuration, error handling and pytest included.",
+    icon: "fa-solid fa-pepper-hot",
+    category: "Backend",
+    tags: ["Python", "Flask", "REST API", "pytest"],
+    github: "https://github.com/Ayinkx/flask-rest-api-boilerplate",
+    demo: "",
+  },
+  {
+    title: "Todo CLI",
+    desc: "A Python command-line application that demonstrates practical software development fundamentals — clean structure, file persistence and a simple, extensible interface.",
+    icon: "fa-solid fa-list-check",
+    category: "CLI",
+    tags: ["Python", "CLI", "Automation"],
+    github: "https://github.com/Ayinkx/todo-cli",
+    demo: "",
+  },
+  {
+    title: "Open Source Contributions",
+    desc: "Open source is a major part of how I learn and build. I work on practical developer tools, backend systems and blockchain-related tooling — writing useful code, improving documentation, testing features and contributing to real projects.",
+    icon: "fa-solid fa-code-branch",
+    category: "Open Source",
+    tags: ["Open Source", "Collaboration", "Git"],
+    github: "https://github.com/Ayinkx?tab=repositories",
     demo: "",
   },
   /* Add more projects here 👇
@@ -106,18 +104,25 @@ const PROJECTS = [
 
 const EXPERIENCE = [
   {
+    date: "2023 — Present",
+    role: "Independent Backend Developer",
+    org: "Self-taught · Independent projects",
+    desc: "Self-taught developer focused on Python, backend engineering, APIs, automation and open source. Designing and building backend systems, REST APIs and developer tooling with a focus on clean, reliable code.",
+    tags: ["Python", "FastAPI", "Flask", "REST API", "SQL"],
+  },
+  {
     date: "2024 — Present",
     role: "Open Source Contributor",
     org: "GitHub · Remote",
-    desc: "Contributing to open-source Python and Stellar/Soroban projects — fixing bugs, adding features and collaborating with other developers.",
+    desc: "Actively contributing to open-source Python and Stellar/Soroban projects — fixing bugs, adding features, improving documentation and collaborating with other developers.",
     tags: ["Open Source", "Git", "Collaboration"],
   },
   {
-    date: "2023 — Present",
-    role: "Backend Developer (Self-taught)",
-    org: "Freelance / Personal projects",
-    desc: "Designing and building Flask REST APIs, automation scripts and backend services with a focus on clean, reliable code.",
-    tags: ["Python", "Flask", "REST API", "SQL"],
+    date: "2022 — Present",
+    role: "Learning Journey",
+    org: "Self-taught",
+    desc: "Started with Python fundamentals and grew into backend development, APIs, automation, version control, Docker and Linux by building real projects.",
+    tags: ["Python", "Docker", "Linux", "Git"],
   },
   {
     date: "2023 — Present",
@@ -132,13 +137,6 @@ const EXPERIENCE = [
     org: "@ayinkxreacts",
     desc: "Built an audience around viral reaction videos and live streams — growing a community across Instagram, YouTube, TikTok, Facebook and X.",
     tags: ["Content Creation", "Video", "Community"],
-  },
-  {
-    date: "2022 — Present",
-    role: "Learning Journey",
-    org: "Self-taught",
-    desc: "Started with Python fundamentals and grew into backend development, version control, Docker and Linux.",
-    tags: ["Python", "Docker", "Linux", "Git"],
   },
 ];
 
@@ -301,23 +299,6 @@ function initReveal() {
     { threshold: 0.15 }
   );
   items.forEach((i) => io.observe(i));
-
-  // Skill bars
-  const bars = document.querySelectorAll(".bar");
-  if (!bars.length) return;
-  const barIo = new IntersectionObserver(
-    (entries, obs) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const bar = entry.target;
-        const level = bar.dataset.level || 0;
-        bar.querySelector(".bar__fill").style.width = `${level}%`;
-        obs.unobserve(bar);
-      });
-    },
-    { threshold: 0.4 }
-  );
-  bars.forEach((b) => barIo.observe(b));
 }
 
 /* -------------------- CONTACT FORM -------------------- */
@@ -580,7 +561,7 @@ function animateCount(el, target, suffix = "") {
 }
 
 function observeCounts(selector) {
-  const els = document.querySelectorAll(selector);
+  const els = [...document.querySelectorAll(selector)].filter((el) => !el.dataset.noCount);
   if (!els.length) return;
   const io = new IntersectionObserver(
     (entries, obs) => {
@@ -602,9 +583,13 @@ function initCounters() {
 }
 
 async function initStats() {
+  const ok = {};
   const set = (id, val) => {
     const el = document.getElementById(id);
-    if (el && val != null) el.dataset.target = val;
+    if (el && typeof val === "number" && !Number.isNaN(val)) {
+      el.dataset.target = val;
+      ok[id] = true;
+    }
   };
   try {
     const u = await fetch("https://api.github.com/users/Ayinkx", {
@@ -617,8 +602,16 @@ async function initStats() {
     const repos = await fetch("https://api.github.com/users/Ayinkx/repos?per_page=100").then((r) => r.json());
     if (Array.isArray(repos)) set("statStars", repos.reduce((s, r) => s + (r.stargazers_count || 0), 0));
   } catch (e) {
-    /* offline or rate-limited — counters fall back to 0 */
+    /* offline or rate-limited — show a neutral fallback instead of a fake zero */
   }
+  ["statFollowers", "statStars", "statRepos"].forEach((id) => {
+    if (ok[id]) return;
+    const el = document.getElementById(id);
+    if (el) {
+      el.textContent = "—";
+      el.dataset.noCount = "1";
+    }
+  });
   observeCounts(".stat__val");
 }
 
@@ -716,7 +709,7 @@ const CMD_ACTIONS = [
   { icon: "fa-solid fa-user", label: "About", keywords: "bio", run: () => goto("#about") },
   { icon: "fa-solid fa-layer-group", label: "Skills", keywords: "tech stack", run: () => goto("#skills") },
   { icon: "fa-solid fa-diagram-project", label: "Projects", run: () => goto("#projects") },
-  { icon: "fa-solid fa-music", label: "Music & Content", keywords: "spotify creative", run: () => goto("#creative") },
+  { icon: "fa-solid fa-music", label: "Beyond Code", keywords: "music content spotify creative", run: () => goto("#creative") },
   { icon: "fa-solid fa-comment-dots", label: "Testimonials", keywords: "quotes", run: () => goto("#testimonials") },
   { icon: "fa-solid fa-pen-nib", label: "Notes", keywords: "blog articles writing", run: () => goto("#notes") },
   { icon: "fa-solid fa-timeline", label: "Experience", keywords: "journey timeline", run: () => goto("#experience") },
