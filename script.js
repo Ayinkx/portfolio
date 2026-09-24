@@ -82,7 +82,7 @@ const PROJECTS = [
   },
   {
     title: "Open Source Contributions",
-    desc: "Open source is a major part of how I learn and build. I work on practical developer tools, backend systems and blockchain-related tooling — writing useful code, improving documentation, testing features and contributing to real projects.",
+    desc: "Contributing to open-source Python and Stellar/Soroban projects — developer tools, backend systems and blockchain tooling, with a focus on useful code, documentation and testing.",
     icon: "fa-solid fa-code-branch",
     category: "Open Source",
     tags: ["Open Source", "Collaboration", "Git"],
@@ -170,7 +170,7 @@ function renderProjects() {
       <p>${escapeHtml(p.desc)}</p>
       <div class="project__tags">${p.tags.map((t) => `<span>${escapeHtml(t)}</span>`).join("")}</div>
       <div class="project__cta">
-        ${p.github ? `<a href="${p.github}" target="_blank" rel="noopener" class="project__cta-link"><i class="fa-brands fa-github"></i> View Source</a>` : ""}
+        ${p.github ? `<a href="${p.github}" target="_blank" rel="noopener" class="project__cta-link"><i class="fa-brands fa-github"></i> View Source <i class="fa-solid fa-arrow-right project__cta-arrow" aria-hidden="true"></i></a>` : ""}
         ${p.demo ? `<a href="${p.demo}" target="_blank" rel="noopener" class="project__cta-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>` : ""}
       </div>
     </article>`;
@@ -843,6 +843,11 @@ function initCustomCursor() {
     requestAnimationFrame(loop);
   };
   loop();
+  const clearCursorLabel = () => {
+    ring.classList.remove("is-hover", "is-label");
+    ring.removeAttribute("data-label");
+  };
+
   document.addEventListener("pointerover", (e) => {
     const t = e.target;
     const interactive = t.closest("a, button, .btn, .cmdk__item, .filter, .stack__node, .repo-card, .project, .build-card, .building-card");
@@ -857,6 +862,17 @@ function initCustomCursor() {
     if (label) ring.dataset.label = label;
     else ring.removeAttribute("data-label");
   });
+
+  // Never leave the label stuck after leaving the window or scrolling content under the pointer
+  document.addEventListener("pointerout", (e) => {
+    if (!e.relatedTarget) clearCursorLabel();
+  });
+  window.addEventListener(
+    "scroll",
+    () => { if (ring.classList.contains("is-label")) clearCursorLabel(); },
+    { passive: true }
+  );
+  document.addEventListener("visibilitychange", () => { if (document.hidden) clearCursorLabel(); });
 }
 
 /* -------------------- COMMAND PALETTE -------------------- */
@@ -910,7 +926,10 @@ function initCommandPalette() {
       )
       .join("");
   };
+  let closeTimer = null;
   const open = () => {
+    clearTimeout(closeTimer);
+    modal.classList.remove("closing");
     modal.hidden = false;
     input.value = "";
     filtered = CMD_ACTIONS.slice();
@@ -918,7 +937,14 @@ function initCommandPalette() {
     render();
     requestAnimationFrame(() => input.focus());
   };
-  const close = () => { modal.hidden = true; };
+  const close = () => {
+    if (modal.hidden || modal.classList.contains("closing")) return;
+    modal.classList.add("closing");
+    closeTimer = setTimeout(() => {
+      modal.hidden = true;
+      modal.classList.remove("closing");
+    }, 180);
+  };
   const run = (i) => { const a = filtered[i]; if (!a) return; close(); a.run(); };
 
   input.addEventListener("input", () => {

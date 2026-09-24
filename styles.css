@@ -821,6 +821,73 @@ html.has-custom-cursor .custom-cursor--ring.is-label::after { opacity: 1; }
   .featured { padding: 26px; }
 }
 
+/* ===================== Polish pass ===================== */
+.terminal { transition: transform .35s ease, box-shadow .35s ease; }
+.hero__visual .terminal:hover,
+.featured__visual .terminal:hover { transform: translateY(-4px); box-shadow: var(--shadow), 0 0 60px -18px var(--accent); }
+.terminal__status { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+
+/* featured data-flow */
+.flow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0 0 22px; }
+.flow__step {
+  font-family: var(--font-code); font-size: .72rem; color: var(--muted); padding: 5px 12px;
+  border-radius: 999px; background: var(--surface); border: 1px solid var(--border);
+  transition: color .25s ease, border-color .25s ease, background .25s ease;
+}
+.flow:hover .flow__step { color: var(--text); }
+.flow__step:hover { color: var(--accent); border-color: var(--border-strong); background: var(--accent-soft); }
+.flow__arrow { font-size: .66rem; color: var(--accent); opacity: .5; animation: flowPulse 2.4s ease-in-out infinite; }
+.flow__arrow:nth-of-type(2) { animation-delay: .35s; }
+.flow__arrow:nth-of-type(3) { animation-delay: .7s; }
+@keyframes flowPulse { 0%, 100% { opacity: .35; transform: translateX(0); } 50% { opacity: .95; transform: translateX(3px); } }
+
+/* micro-interactions */
+.btn i { transition: transform .25s ease; }
+.btn:hover i { transform: translateY(-1px); }
+.build-card__icon { transition: transform .3s ease, background .3s ease; }
+.build-card:hover .build-card__icon { transform: translateY(-3px) scale(1.06); }
+.project:hover .project__tags span { border-color: var(--border-strong); }
+.project__cta-arrow { transition: transform .25s ease; }
+.project__cta-link:hover .project__cta-arrow { transform: translateX(3px); }
+.building-card__link i { transition: transform .25s ease; }
+.building-card__link:hover i { transform: translate(2px, -2px); }
+.featured__badge { transition: box-shadow .3s ease, color .3s ease; }
+.featured:hover .featured__badge { box-shadow: 0 0 26px -8px var(--accent); }
+.repo-card h3 { transition: color .25s ease; }
+.repo-card:hover h3 { color: var(--accent); }
+.proof__item i { transition: transform .25s ease; }
+.proof__item:hover i { transform: translateY(-2px); }
+
+/* command palette close animation */
+.cmdk__backdrop { transition: opacity .18s ease; }
+.cmdk.closing .cmdk__backdrop { opacity: 0; }
+.cmdk.closing .cmdk__box { animation: cmdkOut .18s ease forwards; }
+@keyframes cmdkOut { to { opacity: 0; transform: translateY(-8px) scale(.98); } }
+
+/* ===================== Light theme parity ===================== */
+:root[data-theme="light"] .build-card,
+:root[data-theme="light"] .building-card,
+:root[data-theme="light"] .gh-stat,
+:root[data-theme="light"] .repo-card,
+:root[data-theme="light"] .journey__step,
+:root[data-theme="light"] .stack__info,
+:root[data-theme="light"] .stack__face,
+:root[data-theme="light"] .flow__step,
+:root[data-theme="light"] .featured { background: #ffffff; }
+:root[data-theme="light"] .build-card__tags span,
+:root[data-theme="light"] .building-card__tags span,
+:root[data-theme="light"] .featured__tags span { background: rgba(12, 32, 64, .05); }
+:root[data-theme="light"] .repo-card__lang { box-shadow: 0 0 6px rgba(14, 117, 182, .5); }
+
+/* ===================== Small phone refinements ===================== */
+@media (max-width: 380px) {
+  .nav__logo-text { display: none; }
+  .hero__name { font-size: clamp(2.4rem, 12vw, 3rem); }
+  .terminal__body { font-size: .76rem; }
+  .featured { padding: 20px; }
+  .section__title { font-size: clamp(1.6rem, 8vw, 2rem); }
+}
+
 /* ===================== Reduced motion ===================== */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
