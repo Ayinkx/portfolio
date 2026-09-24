@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ayinkx — Python &amp; Backend Developer</title>
+  <meta name="description" content="Portfolio of Ayinkx — Python Developer, Backend Developer and Open Source Contributor. Building Flask, REST APIs, Docker and automation." />
+  <meta name="author" content="Ayinkx" />
+  <meta name="theme-color" content="#0D1117" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Ayinkx — Python &amp; Backend Developer" />
+  <meta property="og:description" content="Python Developer · Backend Developer · Open Source Contributor" />
+  <meta property="og:image" content="https://github.com/Ayinkx.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/png" href="https://github.com/Ayinkx.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-orbs" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#home" class="nav__logo" aria-label="Ayinkx home">
+        <span class="nav__logo-mark">A</span>
+        <span class="nav__logo-text">Ayinkx<span class="dot">.</span></span>
+      </a>
+
+      <nav class="nav__links" id="navLinks" aria-label="Primary">
+        <a href="#about" class="nav__link">About</a>
+        <a href="#skills" class="nav__link">Skills</a>
+        <a href="#projects" class="nav__link">Projects</a>
+        <a href="#experience" class="nav__link">Experience</a>
+        <a href="#contact" class="nav__link">Contact</a>
+      </nav>
+
+      <a href="assets/resume.pdf" download class="btn btn--ghost nav__cta">
+        <i class="fa-solid fa-download"></i> Resume
+      </a>
+
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" id="home">
+      <div class="hero__grid" aria-hidden="true"></div>
+      <div class="container hero__inner">
+        <div class="hero__content reveal">
+          <p class="hero__hello"><span class="wave">👋</span> Hi there, I'm</p>
+          <h1 class="hero__name">Ayinkx</h1>
+          <h2 class="hero__roles">
+            I build&nbsp;<span class="typed" id="typed"></span><span class="caret">|</span>
+          </h2>
+          <p class="hero__desc">
+            A self-taught developer focused on <strong>Python</strong>, <strong>backend engineering</strong>
+            and <strong>open source</strong>. I turn ideas into reliable, real-world apps with Flask,
+            REST APIs, Docker and clean automation.
+          </p>
+
+          <div class="hero__actions">
+            <a href="#projects" class="btn btn--primary">
+              <i class="fa-solid fa-diagram-project"></i> View Projects
+            </a>
+            <a href="assets/resume.pdf" download class="btn btn--outline">
+              <i class="fa-solid fa-file-arrow-down"></i> Download CV
+            </a>
+          </div>
+
+          <ul class="hero__socials" aria-label="Social links">
+            <li><a href="https://github.com/Ayinkx" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a></li>
+            <li><a href="https://www.linkedin.com/in/ayinkx" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a></li>
+            <li><a href="https://x.com/Ayinkx_" target="_blank" rel="noopener" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a></li>
+            <li><a href="mailto:olayinkaawal00@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a></li>
+            <li><a href="https://wa.me/2348051518765" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a></li>
+          </ul>
+        </div>
+
+        <div class="hero__visual reveal" data-delay="150">
+          <div class="hero__ring"></div>
+          <img src="https://github.com/Ayinkx.png" alt="Ayinkx" class="hero__avatar" width="320" height="320" />
+          <div class="hero__chip hero__chip--1"><i class="fa-brands fa-python"></i> Python</div>
+          <div class="hero__chip hero__chip--2"><i class="fa-solid fa-pepper-hot"></i> Flask</div>
+          <div class="hero__chip hero__chip--3"><i class="fa-brands fa-docker"></i> Docker</div>
+          <div class="hero__chip hero__chip--4"><i class="fa-solid fa-code-branch"></i> Open Source</div>
+        </div>
+      </div>
+
+      <a href="#about" class="hero__scroll" aria-label="Scroll down">
+        <span class="mouse"></span>
+      </a>
+    </section>
+
+    <!-- ===================== ABOUT ===================== -->
+    <section class="section" id="about">
+      <div class="container">
+        <p class="section__eyebrow reveal">01 — About</p>
+        <h2 class="section__title reveal">Get to know me</h2>
+
+        <div class="about">
+          <div class="about__text reveal">
+            <p>
+              I'm <strong>Ayinkx</strong>, a Python and backend developer who loves building things that
+              actually solve problems. My journey is <strong>self-taught and learn-by-building</strong> —
+              every project is a chance to level up.
+            </p>
+            <p>
+              I focus on <strong>Python</strong>, <strong>Flask</strong> and <strong>REST APIs</strong>,
+              with a growing toolkit around <strong>Docker</strong>, <strong>SQL</strong> and automation.
+              I also contribute to <strong>open source</strong>, where I've collaborated on
+              Stellar/Soroban and Python projects.
+            </p>
+            <p>
+              When I'm not coding, I'm exploring new tools, refining my backend skills and finding
+              cleaner ways to ship reliable software.
+            </p>
+
+            <ul class="about__facts">
+              <li><i class="fa-solid fa-location-dot"></i> Nigeria</li>
+              <li><i class="fa-solid fa-briefcase"></i> Open to opportunities</li>
+              <li><i class="fa-solid fa-seedling"></i> Always learning</li>
+            </ul>
+          </div>
+
+          <div class="about__cards reveal" data-delay="120">
+            <div class="mini-card">
+              <i class="fa-brands fa-python"></i>
+              <h3>Backend</h3>
+              <p>Flask, REST APIs, automation, clean architecture.</p>
+            </div>
+            <div class="mini-card">
+              <i class="fa-solid fa-code-branch"></i>
+              <h3>Open Source</h3>
+              <p>Collaborating and contributing to real projects.</p>
+            </div>
+            <div class="mini-card">
+              <i class="fa-solid fa-gears"></i>
+              <h3>DevOps-ish</h3>
+              <p>Docker, Linux, Bash and deployment basics.</p>
+            </div>
+            <div class="mini-card">
+              <i class="fa-solid fa-lightbulb"></i>
+              <h3>Problem Solver</h3>
+              <p>Building tools that make life easier.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SKILLS ===================== -->
+    <section class="section" id="skills">
+      <div class="container">
+        <p class="section__eyebrow reveal">02 — Skills</p>
+        <h2 class="section__title reveal">Tech I work with</h2>
+
+        <div class="skills">
+          <div class="skills__bars reveal">
+            <!-- Edit your levels here (data-level 0-100) -->
+            <div class="bar" data-level="90"><span class="bar__label">Python</span><div class="bar__track"><div class="bar__fill"></div></div><span class="bar__pct">90%</span></div>
+            <div class="bar" data-level="85"><span class="bar__label">Flask &amp; REST</span><div class="bar__track"><div class="bar__fill"></div></div><span class="bar__pct">85%</span></div>
+            <div class="bar" data-level="78"><span class="bar__label">HTML &amp; CSS</span><div class="bar__track"><div class="bar__fill"></div></div><span class="bar__pct">78%</span></div>
+            <div class="bar" data-level="72"><span class="bar__label">JavaScript</span><div class="bar__track"><div class="bar__fill"></div></div><span class="bar__pct">72%</span></div>
+            <div class="bar" data-level="60"><span class="bar__label">SQL</span><div class="bar__track"><div class="bar__fill"></div></div><span class="bar__pct">60%</span></div>
+            <div class="bar" data-level="55"><span class="bar__label">Docker</span><div class="bar__track"><div class="bar__fill"></div></div><span class="bar__pct">55%</span></div>
+          </div>
+
+          <div class="skills__tags reveal" data-delay="120">
+            <div class="tag-group">
+              <h3>Languages</h3>
+              <div class="chips">
+                <span class="chip">Python</span><span class="chip">JavaScript</span>
+                <span class="chip">HTML5</span><span class="chip">CSS3</span><span class="chip">SQL</span>
+              </div>
+            </div>
+            <div class="tag-group">
+              <h3>Frameworks &amp; Tools</h3>
+              <div class="chips">
+                <span class="chip">Flask</span><span class="chip">FastAPI</span><span class="chip">REST API</span>
+                <span class="chip">Docker</span><span class="chip">Git</span><span class="chip">GitHub</span>
+                <span class="chip">Postman</span><span class="chip">MySQL</span>
+              </div>
+            </div>
+            <div class="tag-group">
+              <h3>Environment</h3>
+              <div class="chips">
+                <span class="chip">Linux</span><span class="chip">Bash</span>
+                <span class="chip">VS Code</span><span class="chip">Markdown</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PROJECTS ===================== -->
+    <section class="section" id="projects">
+      <div class="container">
+        <p class="section__eyebrow reveal">03 — Work</p>
+        <h2 class="section__title reveal">Featured Projects</h2>
+
+        <div class="filters reveal" id="filters" aria-label="Filter projects"></div>
+        <div class="projects" id="projectsGrid"></div>
+
+        <div class="projects__more reveal">
+          <a href="https://github.com/Ayinkx?tab=repositories" target="_blank" rel="noopener" class="btn btn--outline">
+            <i class="fa-brands fa-github"></i> See all repositories
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== EXPERIENCE ===================== -->
+    <section class="section" id="experience">
+      <div class="container">
+        <p class="section__eyebrow reveal">04 — Journey</p>
+        <h2 class="section__title reveal">Experience &amp; Timeline</h2>
+
+        <div class="timeline" id="timeline">
+          <!-- Edit these entries in script.js (EXPERIENCE array) -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CONTACT ===================== -->
+    <section class="section" id="contact">
+      <div class="container">
+        <p class="section__eyebrow reveal">05 — Contact</p>
+        <h2 class="section__title reveal">Let's build something</h2>
+
+        <div class="contact">
+          <div class="contact__info reveal">
+            <p>
+              Have a project, a role, or just want to say hi? My inbox is always open —
+              I'll get back to you as soon as I can.
+            </p>
+
+            <ul class="contact__list">
+              <li>
+                <a href="mailto:olayinkaawal00@gmail.com">
+                  <span class="contact__icon"><i class="fa-solid fa-envelope"></i></span>
+                  <span><small>Email</small>olayinkaawal00@gmail.com</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://wa.me/2348051518765" target="_blank" rel="noopener">
+                  <span class="contact__icon"><i class="fa-brands fa-whatsapp"></i></span>
+                  <span><small>WhatsApp</small>+234 805 151 8765</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/Ayinkx" target="_blank" rel="noopener">
+                  <span class="contact__icon"><i class="fa-brands fa-github"></i></span>
+                  <span><small>GitHub</small>@Ayinkx</span>
+                </a>
+              </li>
+            </ul>
+
+            <div class="contact__socials">
+              <a href="https://www.linkedin.com/in/ayinkx" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a href="https://x.com/Ayinkx_" target="_blank" rel="noopener" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+              <a href="https://t.me/ayinkx" target="_blank" rel="noopener" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+              <a href="https://discord.gg/ayinkx" target="_blank" rel="noopener" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+              <a href="https://youtube.com/@Ayinkx" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+              <a href="https://www.instagram.com/ayinkxreacts" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+          </div>
+
+          <form class="contact__form reveal" data-delay="120" id="contactForm" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required />
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" placeholder="Tell me about it..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary btn--block">
+              <i class="fa-solid fa-paper-plane"></i> Send Message
+            </button>
+            <p class="form__note" id="formNote" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__brand"><span class="nav__logo-mark">A</span> Ayinkx<span class="dot">.</span></p>
+      <p class="footer__copy">© <span id="year"></span> Ayinkx · Built with <span class="heart">❤</span> and a lot of Python</p>
+      <div class="footer__socials">
+        <a href="https://github.com/Ayinkx" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/ayinkx" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="mailto:olayinkaawal00@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#home" class="to-top" id="toTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></a>
+
+  <script src="script.js"></script>
+</body>
+</html>
