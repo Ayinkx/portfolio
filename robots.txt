@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://ayinkx.github.io/portfolio/sitemap.xml
