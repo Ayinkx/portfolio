@@ -413,6 +413,45 @@ ul { list-style: none; }
   .container { padding: 0 18px; }
 }
 
+/* ===================== Motion & FX ===================== */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+  z-index: 1000; background: linear-gradient(90deg, var(--accent), var(--accent-3));
+  box-shadow: 0 0 12px -1px var(--accent);
+}
+.cursor-glow {
+  position: fixed; top: 0; left: 0; width: 460px; height: 460px; margin: -230px 0 0 -230px;
+  border-radius: 50%; pointer-events: none; z-index: 0; opacity: 0;
+  background: radial-gradient(circle, rgba(0,247,255,.12), rgba(138,43,226,.06) 45%, transparent 66%);
+  transition: transform .12s ease-out, opacity .4s ease;
+}
+@media (hover: hover) and (pointer: fine) { .cursor-glow { opacity: 1; } }
+
+.hero__particles { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; }
+
+/* animated gradient name */
+.hero__name { background-size: 220% 220%; animation: gradientShift 7s ease-in-out infinite; }
+@keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+/* marquee */
+.marquee { overflow: hidden; padding: 18px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: rgba(255,255,255,.02); }
+.marquee__track { display: flex; width: max-content; animation: marquee 32s linear infinite; }
+.marquee__track:hover { animation-play-state: paused; }
+.marquee__track span { display: inline-flex; align-items: center; gap: 20px; padding: 0 20px; font-family: var(--font-head); font-weight: 600; font-size: 1.02rem; color: var(--muted); letter-spacing: .5px; white-space: nowrap; }
+.marquee__track span::after { content: "✦"; color: var(--accent); font-size: .8rem; opacity: .75; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* timeline draw-in */
+.timeline::before { transform: scaleY(0); transform-origin: top; transition: transform 1.3s cubic-bezier(.22,.61,.36,1); }
+.timeline.in-view::before { transform: scaleY(1); }
+
+/* tilt + magnetic + ripple */
+.project, .creative__card, .mini-card { will-change: transform; }
+.project.is-tilting, .creative__card.is-tilting, .mini-card.is-tilting { transition: transform .1s ease-out; }
+.btn { position: relative; overflow: hidden; }
+.ripple { position: absolute; border-radius: 50%; background: rgba(255,255,255,.45); transform: scale(0); animation: ripple .6s ease-out forwards; pointer-events: none; }
+@keyframes ripple { to { transform: scale(2.6); opacity: 0; } }
+
 /* ===================== Reduced motion ===================== */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }

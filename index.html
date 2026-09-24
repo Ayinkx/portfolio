@@ -23,6 +23,8 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
   <div class="bg-orbs" aria-hidden="true">
     <span></span><span></span><span></span>
   </div>
@@ -58,6 +60,7 @@
     <!-- ===================== HERO ===================== -->
     <section class="hero" id="home">
       <div class="hero__grid" aria-hidden="true"></div>
+      <canvas class="hero__particles" id="particles" aria-hidden="true"></canvas>
       <div class="container hero__inner">
         <div class="hero__content reveal">
           <p class="hero__hello"><span class="wave">👋</span> Hi there, I'm</p>
@@ -103,6 +106,13 @@
         <span class="mouse"></span>
       </a>
     </section>
+
+    <!-- Marquee -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track" id="marqueeTrack">
+        <span>Python</span><span>Flask</span><span>REST APIs</span><span>Docker</span><span>SQL</span><span>FastAPI</span><span>Git</span><span>GitHub</span><span>Linux</span><span>Automation</span><span>Open Source</span><span>Stellar</span><span>Soroban</span>
+      </div>
+    </div>
 
     <!-- ===================== ABOUT ===================== -->
     <section class="section" id="about">
@@ -265,8 +275,8 @@
             <h3>⚡ Content Creation</h3>
             <p>Viral reaction videos and live streams — entertaining, honest and community-driven.</p>
             <div class="creative__stats">
-              <div><strong>30K+</strong><span>Instagram followers</span></div>
-              <div><strong>5+</strong><span>Platforms</span></div>
+              <div><strong class="count" data-count="30" data-suffix="K+">0</strong><span>Instagram followers</span></div>
+              <div><strong class="count" data-count="5" data-suffix="+">0</strong><span>Platforms</span></div>
             </div>
             <div class="creative__links">
               <a href="https://www.youtube.com/@ayinkxreacts" target="_blank" rel="noopener" class="pill"><i class="fa-brands fa-youtube"></i> Reactions</a>

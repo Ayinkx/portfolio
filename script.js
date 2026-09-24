@@ -3,6 +3,9 @@
    Edit the PROJECTS and EXPERIENCE arrays to update content.
    ========================================================= */
 
+const REDUCE = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const HOVER = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
 /* -------------------- EDITABLE CONTENT -------------------- */
 
 const ROLES = [
@@ -154,8 +157,8 @@ function renderProjects() {
     )
     .join("");
 
-  const card = (p) => `
-    <article class="project reveal" data-category="${p.category}">
+  const card = (p, i) => `
+    <article class="project reveal" data-category="${p.category}" style="transition-delay:${(i % 3) * 90}ms">
       <div class="project__top">
         <span class="project__icon"><i class="${p.icon}"></i></span>
         <div class="project__links">
@@ -364,6 +367,224 @@ function initMisc() {
   if (year) year.textContent = new Date().getFullYear();
 }
 
+/* -------------------- MOTION FX -------------------- */
+
+function initScrollProgress() {
+  const bar = document.getElementById("scrollProgress");
+  if (!bar) return;
+  const update = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = `${max > 0 ? (window.scrollY / max) * 100 : 0}%`;
+  };
+  update();
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+}
+
+function initCursorGlow() {
+  const glow = document.getElementById("cursorGlow");
+  if (!glow || REDUCE || !HOVER) return;
+  window.addEventListener(
+    "pointermove",
+    (e) => {
+      glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    },
+    { passive: true }
+  );
+}
+
+function initParticles() {
+  const canvas = document.getElementById("particles");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  let w = 0, h = 0, pts = [], raf = 0, running = false;
+
+  const resize = () => {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.clientWidth;
+    h = canvas.clientHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const count = Math.max(24, Math.min(64, Math.round((w * h) / 24000)));
+    pts = Array.from({ length: count }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      r: Math.random() * 1.5 + 0.6,
+    }));
+  };
+
+  const frame = () => {
+    ctx.clearRect(0, 0, w, h);
+    for (let i = 0; i < pts.length; i++) {
+      const p = pts[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > w) p.vx *= -1;
+      if (p.y < 0 || p.y > h) p.vy *= -1;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(0,247,255,0.6)";
+      ctx.fill();
+      for (let j = i + 1; j < pts.length; j++) {
+        const q = pts[j];
+        const dx = p.x - q.x, dy = p.y - q.y, d2 = dx * dx + dy * dy;
+        if (d2 < 16900) {
+          ctx.strokeStyle = `rgba(0,247,255,${(1 - d2 / 16900) * 0.22})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(q.x, q.y);
+          ctx.stroke();
+        }
+      }
+    }
+    raf = requestAnimationFrame(frame);
+  };
+
+  const start = () => { if (!running) { running = true; frame(); } };
+  const stop = () => { running = false; cancelAnimationFrame(raf); };
+
+  resize();
+  window.addEventListener("resize", resize);
+
+  if (REDUCE) {
+    ctx.clearRect(0, 0, w, h);
+    pts.forEach((p) => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(0,247,255,0.5)";
+      ctx.fill();
+    });
+    return;
+  }
+
+  const io = new IntersectionObserver(
+    (entries) => entries.forEach((e) => (e.isIntersecting ? start() : stop())),
+    { threshold: 0 }
+  );
+  io.observe(canvas);
+  document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
+}
+
+function initParallax() {
+  if (REDUCE) return;
+  const grid = document.querySelector(".hero__grid");
+  const canvas = document.getElementById("particles");
+  const orbs = document.querySelector(".bg-orbs");
+  let ticking = false;
+  const update = () => {
+    const s = window.scrollY;
+    if (s <= window.innerHeight + 200) {
+      const t = `translateY(${s * 0.25}px)`;
+      if (grid) grid.style.transform = t;
+      if (canvas) canvas.style.transform = t;
+      if (orbs) orbs.style.transform = `translateY(${s * 0.12}px)`;
+    }
+    ticking = false;
+  };
+  window.addEventListener(
+    "scroll",
+    () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } },
+    { passive: true }
+  );
+}
+
+function initTilt() {
+  if (REDUCE || !HOVER) return;
+  document.querySelectorAll(".project, .creative__card, .mini-card").forEach((el) => {
+    el.addEventListener("pointermove", (e) => {
+      const r = el.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      el.classList.add("is-tilting");
+      el.style.transform = `perspective(900px) rotateX(${(-py * 7).toFixed(2)}deg) rotateY(${(px * 9).toFixed(2)}deg) translateY(-6px)`;
+    });
+    el.addEventListener("pointerleave", () => {
+      el.classList.remove("is-tilting");
+      el.style.transform = "";
+    });
+  });
+}
+
+function initMagnetic() {
+  if (REDUCE || !HOVER) return;
+  document.querySelectorAll(".btn").forEach((btn) => {
+    btn.addEventListener("pointermove", (e) => {
+      const r = btn.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      btn.style.transform = `translate(${x * 10}px, ${y * 8}px)`;
+    });
+    btn.addEventListener("pointerleave", () => { btn.style.transform = ""; });
+  });
+}
+
+function initRipple() {
+  if (REDUCE) return;
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".btn");
+    if (!btn) return;
+    const r = btn.getBoundingClientRect();
+    const size = Math.max(r.width, r.height);
+    const span = document.createElement("span");
+    span.className = "ripple";
+    span.style.width = span.style.height = `${size}px`;
+    span.style.left = `${e.clientX - r.left - size / 2}px`;
+    span.style.top = `${e.clientY - r.top - size / 2}px`;
+    btn.appendChild(span);
+    setTimeout(() => span.remove(), 620);
+  });
+}
+
+function initCounters() {
+  const els = document.querySelectorAll(".count");
+  if (!els.length) return;
+  const io = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = Number(el.dataset.count) || 0;
+        const suffix = el.dataset.suffix || "";
+        if (REDUCE) { el.textContent = `${target}${suffix}`; obs.unobserve(el); return; }
+        const dur = 1400, t0 = performance.now();
+        const step = (t) => {
+          const p = Math.min((t - t0) / dur, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = `${Math.round(eased * target)}${suffix}`;
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+        obs.unobserve(el);
+      });
+    },
+    { threshold: 0.5 }
+  );
+  els.forEach((el) => io.observe(el));
+}
+
+function initMarquee() {
+  const track = document.getElementById("marqueeTrack");
+  if (track) track.innerHTML += track.innerHTML;
+}
+
+function initTimelineDraw() {
+  const tl = document.getElementById("timeline");
+  if (!tl) return;
+  const io = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { tl.classList.add("in-view"); obs.unobserve(tl); }
+      });
+    },
+    { threshold: 0.2 }
+  );
+  io.observe(tl);
+}
+
 /* -------------------- INIT -------------------- */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -374,4 +595,14 @@ document.addEventListener("DOMContentLoaded", () => {
   initReveal();
   initForm();
   initMisc();
+  initScrollProgress();
+  initCursorGlow();
+  initParticles();
+  initParallax();
+  initTilt();
+  initMagnetic();
+  initRipple();
+  initCounters();
+  initMarquee();
+  initTimelineDraw();
 });
