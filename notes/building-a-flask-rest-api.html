@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building a Flask REST API from scratch — Ayinkx</title>
+  <meta name="description" content="A practical walkthrough of building a clean, testable Flask REST API — blueprints, configuration, error handling and pytest." />
+  <meta name="theme-color" content="#0D1117" />
+  <link rel="canonical" href="https://ayinkx-portfolio.vercel.app/notes/building-a-flask-rest-api.html" />
+  <meta property="og:title" content="Building a Flask REST API from scratch" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://raw.githubusercontent.com/Ayinkx/portfolio/main/assets/og-image.png" />
+  <link rel="icon" type="image/png" href="https://github.com/Ayinkx.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        if (!t) t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) { document.documentElement.setAttribute("data-theme", "dark"); }
+    })();
+  </script>
+</head>
+<body>
+  <div class="bg-orbs" aria-hidden="true"><span></span><span></span><span></span></div>
+  <header class="nav scrolled">
+    <div class="container nav__inner">
+      <a href="../index.html" class="nav__logo" aria-label="Ayinkx home">
+        <span class="nav__logo-mark">A</span>
+        <span class="nav__logo-text">Ayinkx<span class="dot">.</span></span>
+      </a>
+    </div>
+  </header>
+
+  <main class="post-wrap">
+    <!-- ✏️ Replace this placeholder post with your own writing -->
+    <article class="post">
+      <a class="post__back" href="../index.html#notes"><i class="fa-solid fa-arrow-left"></i> Back to notes</a>
+      <p class="post__tag">Backend · 6 min read</p>
+      <h1>Building a Flask REST API from scratch</h1>
+      <p class="post__meta">By Lawal Olayinka Awal (Ayinkx)</p>
+
+      <p>
+        When I started learning backend development, the hardest part wasn’t writing a route — it was
+        structuring a project so it stayed readable as it grew. This is the setup I now reach for every time
+        I build a Flask REST API.
+      </p>
+
+      <h2>Start with a factory</h2>
+      <p>
+        Instead of a giant <code>app.py</code>, create the app inside a function. It keeps configuration
+        flexible and makes testing painless.
+      </p>
+      <pre><code>from flask import Flask
+
+def create_app(config=None):
+    app = Flask(__name__)
+    app.config.from_object(config or "app.config.DefaultConfig")
+    register_blueprints(app)
+    register_errors(app)
+    return app</code></pre>
+
+      <h2>Organise with blueprints</h2>
+      <p>
+        Group related endpoints into blueprints. Each resource gets its own folder with routes, schemas and
+        a service layer — so business logic never leaks into the view functions.
+      </p>
+
+      <blockquote>Clean structure is a feature. Future-you is the main user of your code.</blockquote>
+
+      <h2>Test as you build</h2>
+      <p>
+        With the factory pattern, tests are simple: build the app, use the test client, assert on JSON.
+        I write a test for every endpoint — happy path and failure case.
+      </p>
+      <pre><code>def test_create_todo(client):
+    res = client.post("/todos", json={"title": "Ship it"})
+    assert res.status_code == 201
+    assert res.get_json()["title"] == "Ship it"</code></pre>
+
+      <p>
+        That’s the core loop: factory, blueprints, explicit errors and tests. You can explore the full
+        template on <a href="https://github.com/Ayinkx/flask-rest-api-boilerplate" target="_blank" rel="noopener">GitHub</a>.
+      </p>
+    </article>
+  </main>
+</body>
+</html>

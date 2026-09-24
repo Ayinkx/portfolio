@@ -718,6 +718,7 @@ const CMD_ACTIONS = [
   { icon: "fa-solid fa-diagram-project", label: "Projects", run: () => goto("#projects") },
   { icon: "fa-solid fa-music", label: "Music & Content", keywords: "spotify creative", run: () => goto("#creative") },
   { icon: "fa-solid fa-comment-dots", label: "Testimonials", keywords: "quotes", run: () => goto("#testimonials") },
+  { icon: "fa-solid fa-pen-nib", label: "Notes", keywords: "blog articles writing", run: () => goto("#notes") },
   { icon: "fa-solid fa-timeline", label: "Experience", keywords: "journey timeline", run: () => goto("#experience") },
   { icon: "fa-solid fa-envelope", label: "Contact", keywords: "email message", run: () => goto("#contact") },
   { icon: "fa-solid fa-file-arrow-down", label: "Download CV", keywords: "resume", run: () => ext("assets/resume.pdf") },
