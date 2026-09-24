@@ -5,6 +5,7 @@
 
 const REDUCE = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const HOVER = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+let PARTICLE_RGB = document.documentElement.getAttribute("data-theme") === "light" ? "14,117,182" : "0,247,255";
 
 /* -------------------- EDITABLE CONTENT -------------------- */
 
@@ -321,12 +322,14 @@ function initReveal() {
 
 /* -------------------- CONTACT FORM -------------------- */
 
+const FORMSPREE_ID = ""; // ✏️ paste your Formspree form ID (e.g. "mqkrwxyz") to enable email delivery
+
 function initForm() {
   const form = document.getElementById("contactForm");
   const note = document.getElementById("formNote");
   if (!form) return;
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
@@ -343,11 +346,33 @@ function initForm() {
       return;
     }
 
+    note.classList.remove("error");
+
+    if (FORMSPREE_ID) {
+      note.textContent = "Sending…";
+      try {
+        const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+          method: "POST",
+          headers: { Accept: "application/json", "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, message, _subject: "New message from your portfolio" }),
+        });
+        if (res.ok) {
+          note.textContent = "Thanks! Your message was sent. 🚀";
+          form.reset();
+        } else {
+          note.textContent = "Oops — something went wrong. Please email me directly.";
+          note.classList.add("error");
+        }
+      } catch (err) {
+        note.textContent = "Network error. Please email me directly.";
+        note.classList.add("error");
+      }
+      return;
+    }
+
     const subject = encodeURIComponent(`Portfolio contact from ${name}`);
     const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
     window.location.href = `mailto:olayinkaawal00@gmail.com?subject=${subject}&body=${body}`;
-
-    note.classList.remove("error");
     note.textContent = "Opening your email app…";
     form.reset();
   });
@@ -426,13 +451,13 @@ function initParticles() {
       if (p.y < 0 || p.y > h) p.vy *= -1;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(0,247,255,0.6)";
+      ctx.fillStyle = `rgba(${PARTICLE_RGB},0.6)`;
       ctx.fill();
       for (let j = i + 1; j < pts.length; j++) {
         const q = pts[j];
         const dx = p.x - q.x, dy = p.y - q.y, d2 = dx * dx + dy * dy;
         if (d2 < 16900) {
-          ctx.strokeStyle = `rgba(0,247,255,${(1 - d2 / 16900) * 0.22})`;
+          ctx.strokeStyle = `rgba(${PARTICLE_RGB},${(1 - d2 / 16900) * 0.22})`;
           ctx.lineWidth = 1;
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
@@ -455,7 +480,7 @@ function initParticles() {
     pts.forEach((p) => {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(0,247,255,0.5)";
+      ctx.fillStyle = `rgba(${PARTICLE_RGB},0.5)`;
       ctx.fill();
     });
     return;
@@ -539,31 +564,62 @@ function initRipple() {
   });
 }
 
-function initCounters() {
-  const els = document.querySelectorAll(".count");
+function animateCount(el, target, suffix = "") {
+  if (REDUCE || !target) {
+    el.textContent = `${target}${suffix}`;
+    return;
+  }
+  const dur = 1400, t0 = performance.now();
+  const step = (t) => {
+    const p = Math.min((t - t0) / dur, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = `${Math.round(eased * target)}${suffix}`;
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+function observeCounts(selector) {
+  const els = document.querySelectorAll(selector);
   if (!els.length) return;
   const io = new IntersectionObserver(
     (entries, obs) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         const el = entry.target;
-        const target = Number(el.dataset.count) || 0;
-        const suffix = el.dataset.suffix || "";
-        if (REDUCE) { el.textContent = `${target}${suffix}`; obs.unobserve(el); return; }
-        const dur = 1400, t0 = performance.now();
-        const step = (t) => {
-          const p = Math.min((t - t0) / dur, 1);
-          const eased = 1 - Math.pow(1 - p, 3);
-          el.textContent = `${Math.round(eased * target)}${suffix}`;
-          if (p < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
+        const target = Number(el.dataset.target ?? el.dataset.count) || 0;
+        animateCount(el, target, el.dataset.suffix || "");
         obs.unobserve(el);
       });
     },
     { threshold: 0.5 }
   );
   els.forEach((el) => io.observe(el));
+}
+
+function initCounters() {
+  observeCounts(".count");
+}
+
+async function initStats() {
+  const set = (id, val) => {
+    const el = document.getElementById(id);
+    if (el && val != null) el.dataset.target = val;
+  };
+  try {
+    const u = await fetch("https://api.github.com/users/Ayinkx", {
+      headers: { Accept: "application/vnd.github+json" },
+    }).then((r) => r.json());
+    if (u && typeof u.followers === "number") {
+      set("statFollowers", u.followers);
+      set("statRepos", u.public_repos);
+    }
+    const repos = await fetch("https://api.github.com/users/Ayinkx/repos?per_page=100").then((r) => r.json());
+    if (Array.isArray(repos)) set("statStars", repos.reduce((s, r) => s + (r.stargazers_count || 0), 0));
+  } catch (e) {
+    /* offline or rate-limited — counters fall back to 0 */
+  }
+  observeCounts(".stat__val");
 }
 
 function initMarquee() {
@@ -583,6 +639,156 @@ function initTimelineDraw() {
     { threshold: 0.2 }
   );
   io.observe(tl);
+}
+
+/* -------------------- THEME -------------------- */
+
+function currentTheme() {
+  return document.documentElement.getAttribute("data-theme") || "dark";
+}
+
+function setTheme(t) {
+  document.documentElement.setAttribute("data-theme", t);
+  try { localStorage.setItem("theme", t); } catch (e) {}
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute("content", t === "light" ? "#f6f8fb" : "#0D1117");
+  const btn = document.getElementById("themeToggle");
+  if (btn) btn.innerHTML = t === "light" ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+  PARTICLE_RGB = t === "light" ? "14,117,182" : "0,247,255";
+}
+
+function initTheme() {
+  setTheme(currentTheme());
+  const btn = document.getElementById("themeToggle");
+  btn?.addEventListener("click", () => setTheme(currentTheme() === "light" ? "dark" : "light"));
+}
+
+/* -------------------- LOADER -------------------- */
+
+function initLoader() {
+  const loader = document.getElementById("loader");
+  if (!loader) return;
+  const finish = () => {
+    loader.classList.add("done");
+    setTimeout(() => loader.remove(), 700);
+  };
+  if (REDUCE) { finish(); return; }
+  setTimeout(finish, 900);
+}
+
+/* -------------------- CUSTOM CURSOR -------------------- */
+
+function initCustomCursor() {
+  if (REDUCE || !HOVER) return;
+  const dot = document.getElementById("cursorDot");
+  const ring = document.getElementById("cursorRing");
+  if (!dot || !ring) return;
+  document.documentElement.classList.add("has-custom-cursor");
+  let rx = window.innerWidth / 2, ry = window.innerHeight / 2, tx = rx, ty = ry;
+  window.addEventListener(
+    "pointermove",
+    (e) => {
+      tx = e.clientX;
+      ty = e.clientY;
+      dot.style.transform = `translate(${tx}px, ${ty}px)`;
+    },
+    { passive: true }
+  );
+  const loop = () => {
+    rx += (tx - rx) * 0.18;
+    ry += (ty - ry) * 0.18;
+    ring.style.transform = `translate(${rx}px, ${ry}px)`;
+    requestAnimationFrame(loop);
+  };
+  loop();
+  document.addEventListener("pointerover", (e) => {
+    ring.classList.toggle("is-hover", !!e.target.closest("a, button, .btn, .cmdk__item, .filter"));
+  });
+}
+
+/* -------------------- COMMAND PALETTE -------------------- */
+
+const goto = (sel) => document.querySelector(sel)?.scrollIntoView({ behavior: "smooth" });
+const ext = (url) => window.open(url, "_blank", "noopener");
+
+const CMD_ACTIONS = [
+  { icon: "fa-solid fa-house", label: "Home", run: () => goto("#home") },
+  { icon: "fa-solid fa-user", label: "About", keywords: "bio", run: () => goto("#about") },
+  { icon: "fa-solid fa-layer-group", label: "Skills", keywords: "tech stack", run: () => goto("#skills") },
+  { icon: "fa-solid fa-diagram-project", label: "Projects", run: () => goto("#projects") },
+  { icon: "fa-solid fa-music", label: "Music & Content", keywords: "spotify creative", run: () => goto("#creative") },
+  { icon: "fa-solid fa-comment-dots", label: "Testimonials", keywords: "quotes", run: () => goto("#testimonials") },
+  { icon: "fa-solid fa-timeline", label: "Experience", keywords: "journey timeline", run: () => goto("#experience") },
+  { icon: "fa-solid fa-envelope", label: "Contact", keywords: "email message", run: () => goto("#contact") },
+  { icon: "fa-solid fa-file-arrow-down", label: "Download CV", keywords: "resume", run: () => ext("assets/resume.pdf") },
+  { icon: "fa-brands fa-spotify", label: "Listen on Spotify", keywords: "music", run: () => ext("https://open.spotify.com/artist/0O1tHOJHa5rUDSIEovYDWK") },
+  { icon: "fa-brands fa-youtube", label: "YouTube", run: () => ext("https://youtube.com/@Ayinkx") },
+  { icon: "fa-brands fa-github", label: "GitHub", run: () => ext("https://github.com/Ayinkx") },
+  { icon: "fa-brands fa-linkedin-in", label: "LinkedIn", run: () => ext("https://www.linkedin.com/in/ayinkx") },
+  { icon: "fa-brands fa-instagram", label: "Instagram", keywords: "reactions", run: () => ext("https://www.instagram.com/ayinkxreacts") },
+  { icon: "fa-solid fa-circle-half-stroke", label: "Toggle theme", keywords: "dark light mode", run: () => setTheme(currentTheme() === "light" ? "dark" : "light") },
+  { icon: "fa-solid fa-copy", label: "Copy email", keywords: "contact", hint: "olayinkaawal00@gmail.com", run: () => navigator.clipboard?.writeText("olayinkaawal00@gmail.com") },
+];
+
+function initCommandPalette() {
+  const modal = document.getElementById("cmdk");
+  const input = document.getElementById("cmdkInput");
+  const list = document.getElementById("cmdkList");
+  const openBtn = document.getElementById("cmdBtn");
+  if (!modal || !input || !list) return;
+
+  let filtered = CMD_ACTIONS.slice();
+  let activeIndex = 0;
+
+  const render = () => {
+    if (!filtered.length) {
+      list.innerHTML = '<li class="cmdk__empty">No results</li>';
+      return;
+    }
+    list.innerHTML = filtered
+      .map(
+        (a, i) =>
+          `<li class="cmdk__item${i === activeIndex ? " active" : ""}" data-index="${i}" role="option"><i class="${a.icon}"></i><span>${a.label}</span>${a.hint ? `<span class="cmdk__hint">${a.hint}</span>` : ""}</li>`
+      )
+      .join("");
+  };
+  const open = () => {
+    modal.hidden = false;
+    input.value = "";
+    filtered = CMD_ACTIONS.slice();
+    activeIndex = 0;
+    render();
+    requestAnimationFrame(() => input.focus());
+  };
+  const close = () => { modal.hidden = true; };
+  const run = (i) => { const a = filtered[i]; if (!a) return; close(); a.run(); };
+
+  input.addEventListener("input", () => {
+    const q = input.value.toLowerCase().trim();
+    filtered = CMD_ACTIONS.filter((a) => `${a.label} ${a.keywords || ""}`.toLowerCase().includes(q));
+    activeIndex = 0;
+    render();
+  });
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowDown") { e.preventDefault(); activeIndex = Math.min(activeIndex + 1, filtered.length - 1); render(); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); activeIndex = Math.max(activeIndex - 1, 0); render(); }
+    else if (e.key === "Enter") { e.preventDefault(); run(activeIndex); }
+    else if (e.key === "Escape") close();
+  });
+  list.addEventListener("click", (e) => {
+    const item = e.target.closest(".cmdk__item");
+    if (item) run(Number(item.dataset.index));
+  });
+  modal.querySelectorAll("[data-cmd-close]").forEach((el) => el.addEventListener("click", close));
+  openBtn?.addEventListener("click", open);
+  document.addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+      e.preventDefault();
+      modal.hidden ? open() : close();
+    } else if (e.key === "Escape" && !modal.hidden) {
+      close();
+    }
+  });
 }
 
 /* -------------------- INIT -------------------- */
@@ -605,4 +811,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initCounters();
   initMarquee();
   initTimelineDraw();
+  initTheme();
+  initLoader();
+  initCustomCursor();
+  initCommandPalette();
+  initStats();
 });

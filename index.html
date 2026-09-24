@@ -6,15 +6,62 @@
   <title>Ayinkx — Python &amp; Backend Developer</title>
   <meta name="description" content="Portfolio of Ayinkx — Python Developer, Backend Developer and Open Source Contributor. Building Flask, REST APIs, Docker and automation." />
   <meta name="author" content="Ayinkx" />
+  <meta name="author" content="Lawal Olayinka Awal (Ayinkx)" />
+  <meta name="keywords" content="Ayinkx, Lawal Olayinka Awal, Python developer, backend developer, Flask, REST API, open source, Nigerian musician, content creator, portfolio" />
   <meta name="theme-color" content="#0D1117" />
+  <link rel="canonical" href="https://ayinkx.vercel.app/" />
+  <meta name="robots" content="index, follow" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Ayinkx — Python &amp; Backend Developer" />
-  <meta property="og:description" content="Python Developer · Backend Developer · Open Source Contributor" />
-  <meta property="og:image" content="https://github.com/Ayinkx.png" />
+  <meta property="og:site_name" content="Ayinkx" />
+  <meta property="og:title" content="Ayinkx — Python &amp; Backend Developer · Musician &amp; Creator" />
+  <meta property="og:description" content="Portfolio of Lawal Olayinka Awal (Ayinkx) — Python &amp; backend developer, open-source contributor, Nigerian musician, producer and content creator." />
+  <meta property="og:image" content="https://raw.githubusercontent.com/Ayinkx/portfolio/main/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ayinkx — Python &amp; Backend Developer" />
+  <meta name="twitter:description" content="Python &amp; backend developer · open-source contributor · musician &amp; content creator." />
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/Ayinkx/portfolio/main/assets/og-image.png" />
 
   <link rel="icon" type="image/png" href="https://github.com/Ayinkx.png" />
+  <link rel="apple-touch-icon" href="https://github.com/Ayinkx.png" />
+
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        if (!t) t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    })();
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Lawal Olayinka Awal",
+      "alternateName": "Ayinkx",
+      "jobTitle": "Python & Backend Developer",
+      "url": "https://ayinkx.vercel.app/",
+      "image": "https://github.com/Ayinkx.png",
+      "email": "olayinkaawal00@gmail.com",
+      "address": { "@type": "PostalAddress", "addressLocality": "Lagos", "addressCountry": "NG" },
+      "knowsAbout": ["Python", "Flask", "REST APIs", "Docker", "Open Source", "Stellar", "Soroban", "Music", "Content Creation"],
+      "sameAs": [
+        "https://github.com/Ayinkx",
+        "https://www.linkedin.com/in/ayinkx",
+        "https://x.com/Ayinkx_",
+        "https://open.spotify.com/artist/0O1tHOJHa5rUDSIEovYDWK",
+        "https://youtube.com/@Ayinkx",
+        "https://www.instagram.com/ayinkxreacts"
+      ]
+    }
+  </script>
+
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,6 +70,14 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__logo">A</div>
+    <div class="loader__bar"><span></span></div>
+  </div>
+
+  <div class="custom-cursor" id="cursorDot" aria-hidden="true"></div>
+  <div class="custom-cursor custom-cursor--ring" id="cursorRing" aria-hidden="true"></div>
+
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
   <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
   <div class="bg-orbs" aria-hidden="true">
@@ -45,6 +100,13 @@
         <a href="#experience" class="nav__link">Experience</a>
         <a href="#contact" class="nav__link">Contact</a>
       </nav>
+
+      <button class="nav__icon-btn" id="cmdBtn" aria-label="Search (Ctrl+K)" title="Search (Ctrl+K)">
+        <i class="fa-solid fa-magnifying-glass"></i><kbd>⌘K</kbd>
+      </button>
+      <button class="nav__icon-btn" id="themeToggle" aria-label="Toggle light/dark theme" title="Toggle theme">
+        <i class="fa-solid fa-moon"></i>
+      </button>
 
       <a href="assets/resume.pdf" download class="btn btn--ghost nav__cta">
         <i class="fa-solid fa-download"></i> Resume
@@ -113,6 +175,32 @@
         <span>Python</span><span>Flask</span><span>REST APIs</span><span>Docker</span><span>SQL</span><span>FastAPI</span><span>Git</span><span>GitHub</span><span>Linux</span><span>Automation</span><span>Open Source</span><span>Stellar</span><span>Soroban</span>
       </div>
     </div>
+
+    <!-- ===================== STATS ===================== -->
+    <section class="stats" aria-label="Highlights">
+      <div class="container stats__grid">
+        <div class="stat reveal">
+          <div class="stat__num"><span class="stat__val" id="statFollowers" data-target="0">0</span></div>
+          <div class="stat__label"><i class="fa-brands fa-github"></i> GitHub Followers</div>
+        </div>
+        <div class="stat reveal">
+          <div class="stat__num"><span class="stat__val" id="statStars" data-target="0">0</span></div>
+          <div class="stat__label"><i class="fa-solid fa-star"></i> GitHub Stars</div>
+        </div>
+        <div class="stat reveal">
+          <div class="stat__num"><span class="stat__val" id="statRepos" data-target="0">0</span></div>
+          <div class="stat__label"><i class="fa-solid fa-folder-tree"></i> Public Repos</div>
+        </div>
+        <div class="stat reveal">
+          <div class="stat__num"><span class="stat__val" data-target="30" data-suffix="K+">0</span></div>
+          <div class="stat__label"><i class="fa-solid fa-users"></i> Community</div>
+        </div>
+        <div class="stat reveal">
+          <div class="stat__num"><span class="stat__val" data-target="5" data-suffix="+">0</span></div>
+          <div class="stat__label"><i class="fa-solid fa-share-nodes"></i> Platforms</div>
+        </div>
+      </div>
+    </section>
 
     <!-- ===================== ABOUT ===================== -->
     <section class="section" id="about">
@@ -289,6 +377,34 @@
           </article>
         </div>
 
+        <!-- Latest release -->
+        <div class="release reveal">
+          <img class="release__art" src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f5/01/59/f50159af-cee3-6785-b73a-9d05300e764c/5063858024272_cover.jpg/600x600bb.jpg" alt="No Hard Feelings — cover art" loading="lazy" />
+          <div class="release__info">
+            <p class="release__tag"><i class="fa-solid fa-bolt"></i> Latest Release</p>
+            <h3>No Hard Feelings</h3>
+            <p class="release__meta">Single · Ayinkx</p>
+            <div class="release__links">
+              <a class="btn btn--primary" href="https://open.spotify.com/artist/0O1tHOJHa5rUDSIEovYDWK" target="_blank" rel="noopener"><i class="fa-brands fa-spotify"></i> Spotify</a>
+              <a class="btn btn--outline" href="https://music.apple.com/us/album/no-hard-feelings-single/1850405805?uo=4" target="_blank" rel="noopener"><i class="fa-brands fa-apple"></i> Apple Music</a>
+              <a class="btn btn--outline" href="https://youtube.com/@Ayinkx" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i> YouTube</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Media -->
+        <div class="media-grid">
+          <div class="media-card media-card--video reveal">
+            <iframe title="Ayinkx — Give It All (video)" src="https://www.youtube.com/embed/vwEpwxbNU3M?rel=0" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <div class="media-card media-card--ig reveal" data-delay="120">
+            <i class="fa-brands fa-instagram"></i>
+            <h3>Reactions &amp; Streams</h3>
+            <p>Viral reactions and live streams with a growing 30K+ community. Fresh videos on YouTube and Instagram.</p>
+            <a class="btn btn--outline" href="https://www.instagram.com/ayinkxreacts" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Follow @ayinkxreacts</a>
+          </div>
+        </div>
+
         <div class="creative__embed reveal">
           <iframe
             title="Ayinkx on Spotify"
@@ -307,10 +423,48 @@
       </div>
     </section>
 
+    <!-- ===================== TESTIMONIALS ===================== -->
+    <section class="section" id="testimonials">
+      <div class="container">
+        <p class="section__eyebrow reveal">05 — Kind Words</p>
+        <h2 class="section__title reveal">What people say</h2>
+
+        <div class="quotes">
+          <!-- ✏️ Replace these with real testimonials -->
+          <figure class="quote reveal">
+            <div class="quote__mark">“</div>
+            <blockquote>Clean code, clear communication and ships fast. A reliable collaborator on open-source work.</blockquote>
+            <figcaption><span class="quote__avatar">OS</span> Open-source collaborator</figcaption>
+          </figure>
+          <figure class="quote reveal" data-delay="100">
+            <div class="quote__mark">“</div>
+            <blockquote>Ayinkx brings the same energy to backend work as he does to music — focused, creative and consistent.</blockquote>
+            <figcaption><span class="quote__avatar">SF</span> Project collaborator</figcaption>
+          </figure>
+          <figure class="quote reveal" data-delay="200">
+            <div class="quote__mark">“</div>
+            <blockquote>The reactions are hilarious and genuine. The community keeps growing for a reason.</blockquote>
+            <figcaption><span class="quote__avatar">🎧</span> Listener &amp; follower</figcaption>
+          </figure>
+        </div>
+
+        <div class="proof reveal">
+          <span class="proof__label">Featured &amp; active on</span>
+          <div class="proof__items">
+            <span class="proof__item"><i class="fa-brands fa-spotify"></i> Spotify</span>
+            <span class="proof__item"><i class="fa-brands fa-apple"></i> Apple Music</span>
+            <span class="proof__item"><i class="fa-brands fa-youtube"></i> YouTube</span>
+            <span class="proof__item"><i class="fa-brands fa-github"></i> Open Source</span>
+            <span class="proof__item"><i class="fa-solid fa-newspaper"></i> Featured on Medium</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ===================== EXPERIENCE ===================== -->
     <section class="section" id="experience">
       <div class="container">
-        <p class="section__eyebrow reveal">05 — Journey</p>
+        <p class="section__eyebrow reveal">06 — Journey</p>
         <h2 class="section__title reveal">Experience &amp; Timeline</h2>
 
         <div class="timeline" id="timeline">
@@ -322,7 +476,7 @@
     <!-- ===================== CONTACT ===================== -->
     <section class="section" id="contact">
       <div class="container">
-        <p class="section__eyebrow reveal">06 — Contact</p>
+        <p class="section__eyebrow reveal">07 — Contact</p>
         <h2 class="section__title reveal">Let's build something</h2>
 
         <div class="contact">
@@ -364,6 +518,7 @@
           </div>
 
           <form class="contact__form reveal" data-delay="120" id="contactForm" novalidate>
+            <input type="hidden" name="_subject" value="New message from your portfolio" />
             <div class="field">
               <label for="name">Name</label>
               <input type="text" id="name" name="name" placeholder="Your name" required />
@@ -400,6 +555,24 @@
   </footer>
 
   <a href="#home" class="to-top" id="toTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></a>
+
+  <!-- ===================== COMMAND PALETTE ===================== -->
+  <div class="cmdk" id="cmdk" hidden>
+    <div class="cmdk__backdrop" data-cmd-close></div>
+    <div class="cmdk__box" role="dialog" aria-modal="true" aria-label="Command palette">
+      <div class="cmdk__search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input id="cmdkInput" type="text" placeholder="Search sections, links and actions…" autocomplete="off" spellcheck="false" />
+        <kbd>Esc</kbd>
+      </div>
+      <ul class="cmdk__list" id="cmdkList" role="listbox"></ul>
+      <div class="cmdk__foot">
+        <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+        <span><kbd>↵</kbd> open</span>
+        <span><kbd>Esc</kbd> close</span>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
