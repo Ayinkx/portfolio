@@ -161,13 +161,18 @@ function renderProjects() {
       <div class="project__top">
         <span class="project__icon"><i class="${p.icon}"></i></span>
         <div class="project__links">
-          ${p.github ? `<a href="${p.github}" target="_blank" rel="noopener" aria-label="Source code"><i class="fa-brands fa-github"></i></a>` : ""}
+          ${p.github ? `<a href="${p.github}" target="_blank" rel="noopener" aria-label="Source code on GitHub"><i class="fa-brands fa-github"></i></a>` : ""}
           ${p.demo ? `<a href="${p.demo}" target="_blank" rel="noopener" aria-label="Live demo"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>` : ""}
         </div>
       </div>
-      <h3>${p.title}</h3>
-      <p>${p.desc}</p>
-      <div class="project__tags">${p.tags.map((t) => `<span>${t}</span>`).join("")}</div>
+      <span class="project__cat">${escapeHtml(p.category)}</span>
+      <h3>${escapeHtml(p.title)}</h3>
+      <p>${escapeHtml(p.desc)}</p>
+      <div class="project__tags">${p.tags.map((t) => `<span>${escapeHtml(t)}</span>`).join("")}</div>
+      <div class="project__cta">
+        ${p.github ? `<a href="${p.github}" target="_blank" rel="noopener" class="project__cta-link"><i class="fa-brands fa-github"></i> View Source</a>` : ""}
+        ${p.demo ? `<a href="${p.demo}" target="_blank" rel="noopener" class="project__cta-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>` : ""}
+      </div>
     </article>`;
 
   grid.innerHTML = PROJECTS.map(card).join("");
@@ -500,9 +505,11 @@ function initParallax() {
 
 function initTilt() {
   if (REDUCE || !HOVER) return;
-  document.querySelectorAll(".project, .creative__card, .mini-card").forEach((el) => {
+  document.querySelectorAll(".project, .creative__card, .mini-card, .build-card, .building-card").forEach((el) => {
     el.addEventListener("pointermove", (e) => {
       const r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      el.style.setProperty("--my", `${e.clientY - r.top}px`);
       const px = (e.clientX - r.left) / r.width - 0.5;
       const py = (e.clientY - r.top) / r.height - 0.5;
       el.classList.add("is-tilting");
@@ -582,7 +589,38 @@ function initCounters() {
   observeCounts(".count");
 }
 
+function escapeHtml(value) {
+  return String(value == null ? "" : value).replace(/[&<>"']/g, (c) => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+  ));
+}
+
+let ghCache = null;
+function loadGitHub() {
+  if (!ghCache) {
+    ghCache = (async () => {
+      const result = { user: null, repos: null };
+      const headers = { Accept: "application/vnd.github+json" };
+      try {
+        const user = await fetch("https://api.github.com/users/Ayinkx", { headers }).then((r) => r.json());
+        if (user && !user.message && typeof user.followers === "number") result.user = user;
+      } catch (e) { /* offline or rate-limited */ }
+      try {
+        const repos = await fetch("https://api.github.com/users/Ayinkx/repos?per_page=100&sort=updated", { headers }).then((r) => r.json());
+        if (Array.isArray(repos)) result.repos = repos;
+      } catch (e) { /* offline or rate-limited */ }
+      return result;
+    })();
+  }
+  return ghCache;
+}
+
 async function initStats() {
+  // A verifiable statistic computed from the project data in this file.
+  const projectCount = PROJECTS.filter((p) => p.category !== "Open Source").length;
+  const projectsEl = document.getElementById("statProjects");
+  if (projectsEl) projectsEl.dataset.target = projectCount;
+
   const ok = {};
   const set = (id, val) => {
     const el = document.getElementById(id);
@@ -591,19 +629,13 @@ async function initStats() {
       ok[id] = true;
     }
   };
-  try {
-    const u = await fetch("https://api.github.com/users/Ayinkx", {
-      headers: { Accept: "application/vnd.github+json" },
-    }).then((r) => r.json());
-    if (u && typeof u.followers === "number") {
-      set("statFollowers", u.followers);
-      set("statRepos", u.public_repos);
-    }
-    const repos = await fetch("https://api.github.com/users/Ayinkx/repos?per_page=100").then((r) => r.json());
-    if (Array.isArray(repos)) set("statStars", repos.reduce((s, r) => s + (r.stargazers_count || 0), 0));
-  } catch (e) {
-    /* offline or rate-limited — show a neutral fallback instead of a fake zero */
+  const { user, repos } = await loadGitHub();
+  if (user) {
+    set("statFollowers", user.followers);
+    set("statRepos", user.public_repos);
   }
+  if (repos) set("statStars", repos.reduce((s, r) => s + (r.stargazers_count || 0), 0));
+
   ["statFollowers", "statStars", "statRepos"].forEach((id) => {
     if (ok[id]) return;
     const el = document.getElementById(id);
@@ -615,9 +647,126 @@ async function initStats() {
   observeCounts(".stat__val");
 }
 
+function repoCard(r) {
+  const lang = r.language
+    ? `<span><span class="repo-card__lang"></span>${escapeHtml(r.language)}</span>`
+    : "";
+  return `
+    <a class="repo-card" href="${r.html_url}" target="_blank" rel="noopener">
+      <div class="repo-card__top"><i class="fa-solid fa-book-bookmark"></i><h3>${escapeHtml(r.name)}</h3></div>
+      <p>${escapeHtml(r.description || "No description provided.")}</p>
+      <div class="repo-card__meta">
+        ${lang}
+        <span><i class="fa-solid fa-star"></i> ${Number(r.stargazers_count) || 0}</span>
+        <span><i class="fa-solid fa-code-fork"></i> ${Number(r.forks_count) || 0}</span>
+      </div>
+    </a>`;
+}
+
+async function initOpenSource() {
+  const grid = document.getElementById("repoGrid");
+  if (!grid) return;
+  const { user, repos } = await loadGitHub();
+
+  const setStat = (id, val) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (typeof val === "number" && !Number.isNaN(val)) el.dataset.target = val;
+    else {
+      el.textContent = "—";
+      el.dataset.noCount = "1";
+    }
+  };
+  if (user) {
+    setStat("osFollowers", user.followers);
+    setStat("osRepos", user.public_repos);
+  } else {
+    setStat("osRepos", null);
+    setStat("osFollowers", null);
+  }
+  if (repos) setStat("osStars", repos.reduce((s, r) => s + (r.stargazers_count || 0), 0));
+  else setStat("osStars", null);
+
+  if (repos && repos.length) {
+    const selected = repos
+      .filter((r) => !r.fork)
+      .sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0))
+      .slice(0, 6);
+    grid.innerHTML = selected.length
+      ? selected.map(repoCard).join("")
+      : `<p class="repo-fallback">No public repositories to show yet. <a href="https://github.com/Ayinkx?tab=repositories" target="_blank" rel="noopener">View them on GitHub</a>.</p>`;
+  } else {
+    grid.innerHTML = `<p class="repo-fallback">Repositories are temporarily unavailable. <a href="https://github.com/Ayinkx?tab=repositories" target="_blank" rel="noopener">View them on GitHub</a>.</p>`;
+  }
+  observeCounts(".gh-stat__num");
+}
+
 function initMarquee() {
   const track = document.getElementById("marqueeTrack");
   if (track) track.innerHTML += track.innerHTML;
+}
+
+/* -------------------- TERMINAL -------------------- */
+
+function initTerminal() {
+  const term = document.getElementById("terminal");
+  if (!term || REDUCE) return;
+  const cmdLines = [...term.querySelectorAll(".terminal__line")].filter((n) => n.querySelector(".terminal__cmd"));
+  if (!cmdLines.length) return;
+  term.classList.add("terminal--anim");
+
+  const revealOutsAfter = (line) => {
+    let node = line.nextElementSibling;
+    const outs = [];
+    while (node && node.classList.contains("terminal__out")) { outs.push(node); node = node.nextElementSibling; }
+    return outs;
+  };
+
+  let index = 0;
+  const next = () => {
+    if (index >= cmdLines.length) return;
+    const line = cmdLines[index++];
+    const cmd = line.querySelector(".terminal__cmd");
+    const text = cmd.dataset.line || cmd.textContent;
+    cmd.textContent = "";
+    let k = 0;
+    const type = () => {
+      cmd.textContent = text.slice(0, ++k);
+      if (k < text.length) { setTimeout(type, 55); return; }
+      setTimeout(() => {
+        revealOutsAfter(line).forEach((o) => o.classList.add("is-shown"));
+        setTimeout(next, 320);
+      }, 180);
+    };
+    type();
+  };
+  setTimeout(next, 500);
+}
+
+/* -------------------- TECH STACK ORBIT -------------------- */
+
+function initStackOrbit() {
+  const orbit = document.getElementById("stackOrbit");
+  if (!orbit) return;
+  const info = document.getElementById("stackInfo");
+  const nodes = [...orbit.querySelectorAll(".stack__node")];
+  if (!nodes.length) return;
+  const defaultHTML = info ? info.innerHTML : "";
+  const show = (node) => {
+    nodes.forEach((n) => n.classList.toggle("is-active", n === node));
+    if (info) info.innerHTML = `<h3>${escapeHtml(node.dataset.tech)}</h3><p>${escapeHtml(node.dataset.desc)}</p>`;
+  };
+  const reset = () => {
+    nodes.forEach((n) => n.classList.remove("is-active"));
+    if (info) info.innerHTML = defaultHTML;
+  };
+  nodes.forEach((node) => {
+    node.addEventListener("mouseenter", () => show(node));
+    node.addEventListener("focus", () => show(node));
+    node.addEventListener("mouseleave", reset);
+    node.addEventListener("blur", reset);
+    node.addEventListener("click", () => show(node));
+  });
 }
 
 function initTimelineDraw() {
@@ -695,7 +844,18 @@ function initCustomCursor() {
   };
   loop();
   document.addEventListener("pointerover", (e) => {
-    ring.classList.toggle("is-hover", !!e.target.closest("a, button, .btn, .cmdk__item, .filter"));
+    const t = e.target;
+    const interactive = t.closest("a, button, .btn, .cmdk__item, .filter, .stack__node, .repo-card, .project, .build-card, .building-card");
+    ring.classList.toggle("is-hover", !!interactive);
+
+    let label = "";
+    if (t.closest(".project, .build-card, .building-card")) label = "VIEW";
+    else if (t.closest("a[href*='github.com'], .repo-card")) label = "GITHUB";
+    else if (t.closest(".btn, button, .filter, .stack__node, .cmdk__item")) label = "OPEN";
+
+    ring.classList.toggle("is-label", !!label);
+    if (label) ring.dataset.label = label;
+    else ring.removeAttribute("data-label");
   });
 }
 
@@ -706,13 +866,17 @@ const ext = (url) => window.open(url, "_blank", "noopener");
 
 const CMD_ACTIONS = [
   { icon: "fa-solid fa-house", label: "Home", run: () => goto("#home") },
-  { icon: "fa-solid fa-user", label: "About", keywords: "bio", run: () => goto("#about") },
-  { icon: "fa-solid fa-layer-group", label: "Skills", keywords: "tech stack", run: () => goto("#skills") },
+  { icon: "fa-solid fa-layer-group", label: "What I Build", keywords: "services backend automation tools", run: () => goto("#build") },
+  { icon: "fa-solid fa-star", label: "Featured Project", keywords: "ai code assistant", run: () => goto("#featured") },
   { icon: "fa-solid fa-diagram-project", label: "Projects", run: () => goto("#projects") },
+  { icon: "fa-solid fa-microchip", label: "Tech Stack", keywords: "skills tools python", run: () => goto("#skills") },
+  { icon: "fa-solid fa-code-branch", label: "Open Source", keywords: "github repositories", run: () => goto("#opensource") },
+  { icon: "fa-solid fa-user", label: "About", keywords: "bio", run: () => goto("#about") },
   { icon: "fa-solid fa-music", label: "Beyond Code", keywords: "music content spotify creative", run: () => goto("#creative") },
   { icon: "fa-solid fa-comment-dots", label: "Testimonials", keywords: "quotes", run: () => goto("#testimonials") },
-  { icon: "fa-solid fa-pen-nib", label: "Notes", keywords: "blog articles writing", run: () => goto("#notes") },
   { icon: "fa-solid fa-timeline", label: "Experience", keywords: "journey timeline", run: () => goto("#experience") },
+  { icon: "fa-solid fa-satellite-dish", label: "Currently Building", keywords: "progress status active", run: () => goto("#building") },
+  { icon: "fa-solid fa-pen-nib", label: "Notes", keywords: "blog articles writing", run: () => goto("#notes") },
   { icon: "fa-solid fa-envelope", label: "Contact", keywords: "email message", run: () => goto("#contact") },
   { icon: "fa-solid fa-file-arrow-down", label: "Download CV", keywords: "resume", run: () => ext("assets/resume.pdf") },
   { icon: "fa-brands fa-spotify", label: "Listen on Spotify", keywords: "music", run: () => ext("https://open.spotify.com/artist/0O1tHOJHa5rUDSIEovYDWK") },
@@ -804,10 +968,13 @@ document.addEventListener("DOMContentLoaded", () => {
   initRipple();
   initCounters();
   initMarquee();
+  initTerminal();
+  initStackOrbit();
   initTimelineDraw();
   initTheme();
   initLoader();
   initCustomCursor();
   initCommandPalette();
   initStats();
+  initOpenSource();
 });

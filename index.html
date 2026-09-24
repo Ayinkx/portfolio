@@ -51,7 +51,7 @@
       "image": "https://github.com/Ayinkx.png",
       "email": "olayinkaawal00@gmail.com",
       "address": { "@type": "PostalAddress", "addressLocality": "Lagos", "addressCountry": "NG" },
-      "knowsAbout": ["Python", "Flask", "REST APIs", "Docker", "Open Source", "Stellar", "Soroban", "Music", "Content Creation"],
+      "knowsAbout": ["Python", "FastAPI", "Flask", "REST APIs", "SQL", "Docker", "Open Source", "Stellar", "Soroban", "Automation", "Music", "Content Creation"],
       "sameAs": [
         "https://github.com/Ayinkx",
         "https://www.linkedin.com/in/ayinkx",
@@ -95,11 +95,11 @@
 
       <nav class="nav__links" id="navLinks" aria-label="Primary">
         <a href="#about" class="nav__link">About</a>
-        <a href="#skills" class="nav__link">Skills</a>
+        <a href="#build" class="nav__link">Build</a>
         <a href="#projects" class="nav__link">Projects</a>
+        <a href="#skills" class="nav__link">Stack</a>
+        <a href="#opensource" class="nav__link">Open Source</a>
         <a href="#creative" class="nav__link">Beyond Code</a>
-        <a href="#experience" class="nav__link">Experience</a>
-        <a href="#notes" class="nav__link">Notes</a>
         <a href="#contact" class="nav__link">Contact</a>
       </nav>
 
@@ -127,6 +127,7 @@
       <canvas class="hero__particles" id="particles" aria-hidden="true"></canvas>
       <div class="container hero__inner">
         <div class="hero__content reveal">
+          <p class="hero__status"><span class="status-dot" aria-hidden="true"></span> Available for opportunities</p>
           <p class="hero__hello"><span class="wave">👋</span> Python Backend Developer &amp; Open Source Builder</p>
           <h1 class="hero__name">Ayinkx</h1>
           <h2 class="hero__roles">
@@ -142,10 +143,24 @@
             <a href="#projects" class="btn btn--primary">
               <i class="fa-solid fa-diagram-project"></i> View Projects
             </a>
-            <a href="assets/resume.pdf" download class="btn btn--outline">
-              <i class="fa-solid fa-file-arrow-down"></i> Download CV
+            <a href="https://github.com/Ayinkx" target="_blank" rel="noopener" class="btn btn--outline">
+              <i class="fa-brands fa-github"></i> GitHub
+            </a>
+            <a href="#contact" class="btn btn--ghost">
+              <i class="fa-solid fa-paper-plane"></i> Contact Me
             </a>
           </div>
+
+          <ul class="hero__pills" aria-label="Core technologies">
+            <li>Python</li>
+            <li>FastAPI</li>
+            <li>Flask</li>
+            <li>REST APIs</li>
+            <li>SQL</li>
+            <li>Docker</li>
+            <li>Linux</li>
+            <li>Git</li>
+          </ul>
 
           <ul class="hero__socials" aria-label="Social links">
             <li><a href="https://github.com/Ayinkx" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a></li>
@@ -157,16 +172,36 @@
         </div>
 
         <div class="hero__visual reveal" data-delay="150">
-          <div class="hero__ring"></div>
-          <img src="https://github.com/Ayinkx.png" alt="Ayinkx" class="hero__avatar" width="320" height="320" />
-          <div class="hero__chip hero__chip--1"><i class="fa-brands fa-python"></i> Python</div>
-          <div class="hero__chip hero__chip--2"><i class="fa-solid fa-pepper-hot"></i> Flask</div>
-          <div class="hero__chip hero__chip--3"><i class="fa-brands fa-docker"></i> Docker</div>
-          <div class="hero__chip hero__chip--4"><i class="fa-solid fa-code-branch"></i> Open Source</div>
+          <div class="hero__avatar-wrap">
+            <div class="hero__ring"></div>
+            <img src="https://github.com/Ayinkx.png" alt="Ayinkx" class="hero__avatar" width="320" height="320" />
+            <div class="hero__chip hero__chip--1"><i class="fa-brands fa-python"></i> Python</div>
+            <div class="hero__chip hero__chip--2"><i class="fa-solid fa-bolt"></i> FastAPI</div>
+            <div class="hero__chip hero__chip--3"><i class="fa-brands fa-docker"></i> Docker</div>
+            <div class="hero__chip hero__chip--4"><i class="fa-solid fa-code-branch"></i> Open Source</div>
+          </div>
+
+          <div class="terminal" id="terminal" aria-label="Developer terminal">
+            <div class="terminal__bar">
+              <span class="terminal__dot" style="--c:#ff5f56"></span>
+              <span class="terminal__dot" style="--c:#ffbd2e"></span>
+              <span class="terminal__dot" style="--c:#27c93f"></span>
+              <span class="terminal__title">ayinkx@portfolio — bash</span>
+            </div>
+            <div class="terminal__body">
+              <p class="terminal__line"><span class="terminal__prompt" aria-hidden="true">$</span> <span class="terminal__cmd" data-line="whoami">whoami</span></p>
+              <p class="terminal__out">Ayinkx</p>
+              <p class="terminal__line"><span class="terminal__prompt" aria-hidden="true">$</span> <span class="terminal__cmd" data-line="stack">stack</span></p>
+              <p class="terminal__out">Python / FastAPI / Flask<br />SQL / Docker / Linux</p>
+              <p class="terminal__line"><span class="terminal__prompt" aria-hidden="true">$</span> <span class="terminal__cmd" data-line="status">status</span></p>
+              <p class="terminal__out"><span class="t-dot"></span> Building&nbsp;&nbsp;<span class="t-dot"></span> Open Source&nbsp;&nbsp;<span class="t-dot"></span> Available</p>
+              <p class="terminal__line"><span class="terminal__prompt" aria-hidden="true">$</span> <span class="terminal__cursor" aria-hidden="true"></span></p>
+            </div>
+          </div>
         </div>
       </div>
 
-      <a href="#about" class="hero__scroll" aria-label="Scroll down">
+      <a href="#build" class="hero__scroll" aria-label="Scroll down">
         <span class="mouse"></span>
       </a>
     </section>
@@ -174,12 +209,12 @@
     <!-- Marquee -->
     <div class="marquee" aria-hidden="true">
       <div class="marquee__track" id="marqueeTrack">
-        <span>Python</span><span>Flask</span><span>REST APIs</span><span>Docker</span><span>SQL</span><span>FastAPI</span><span>Git</span><span>GitHub</span><span>Linux</span><span>Automation</span><span>Open Source</span><span>Stellar</span><span>Soroban</span>
+        <span>Python</span><span>FastAPI</span><span>Flask</span><span>REST APIs</span><span>Docker</span><span>SQL</span><span>Git</span><span>Linux</span><span>Automation</span><span>Open Source</span><span>Stellar</span><span>Soroban</span>
       </div>
     </div>
 
     <!-- ===================== STATS ===================== -->
-    <section class="stats" aria-label="Highlights">
+    <section class="stats" id="stats" aria-label="Highlights">
       <div class="container stats__grid">
         <div class="stat reveal">
           <div class="stat__num"><span class="stat__val" id="statFollowers" data-target="0">—</span></div>
@@ -194,6 +229,10 @@
           <div class="stat__label"><i class="fa-solid fa-folder-tree"></i> Public Repos</div>
         </div>
         <div class="stat reveal">
+          <div class="stat__num"><span class="stat__val" id="statProjects" data-target="0">—</span></div>
+          <div class="stat__label"><i class="fa-solid fa-diagram-project"></i> Projects Built</div>
+        </div>
+        <div class="stat reveal">
           <div class="stat__num"><span class="stat__val" data-target="30" data-suffix="K+">0</span></div>
           <div class="stat__label"><i class="fa-solid fa-users"></i> Community</div>
         </div>
@@ -204,10 +243,235 @@
       </div>
     </section>
 
+    <!-- ===================== WHAT I BUILD ===================== -->
+    <section class="section" id="build">
+      <div class="container">
+        <p class="section__eyebrow reveal">01 — What I Build</p>
+        <h2 class="section__title reveal">Engineering that ships</h2>
+
+        <div class="build-grid">
+          <article class="build-card reveal">
+            <span class="build-card__icon"><i class="fa-solid fa-server"></i></span>
+            <h3>Backend Systems</h3>
+            <p>APIs, backend services, authentication, databases and production-ready application logic.</p>
+            <div class="build-card__tags"><span>FastAPI</span><span>Flask</span><span>SQL</span></div>
+          </article>
+          <article class="build-card reveal" data-delay="90">
+            <span class="build-card__icon"><i class="fa-solid fa-robot"></i></span>
+            <h3>Automation</h3>
+            <p>Python automation, scheduled jobs, workflow automation and integrations.</p>
+            <div class="build-card__tags"><span>Python</span><span>APScheduler</span><span>Integrations</span></div>
+          </article>
+          <article class="build-card reveal" data-delay="180">
+            <span class="build-card__icon"><i class="fa-solid fa-screwdriver-wrench"></i></span>
+            <h3>Developer Tools</h3>
+            <p>CLI tools, coding assistants, developer utilities and engineering productivity tools.</p>
+            <div class="build-card__tags"><span>CLI</span><span>Tooling</span><span>AI</span></div>
+          </article>
+          <article class="build-card reveal" data-delay="270">
+            <span class="build-card__icon"><i class="fa-solid fa-code-branch"></i></span>
+            <h3>Open Source</h3>
+            <p>Real repositories, contributions, documentation, testing and developer-focused projects.</p>
+            <div class="build-card__tags"><span>Git</span><span>Docs</span><span>Testing</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FEATURED PROJECT ===================== -->
+    <section class="section" id="featured">
+      <div class="container">
+        <p class="section__eyebrow reveal">02 — Featured Project</p>
+        <h2 class="section__title reveal">AI Code Assistant</h2>
+
+        <div class="featured reveal">
+          <div class="featured__info">
+            <span class="featured__badge"><i class="fa-solid fa-star"></i> Open Source · Featured</span>
+            <p class="featured__name">AI Code Assistant</p>
+            <p>
+              An open-source AI coding assistant and developer tool focused on repository analysis,
+              Stellar/Soroban development workflows, transaction and XDR inspection, RPC/Horizon tooling,
+              contract scaffolding and extensible plugins.
+            </p>
+            <div class="featured__tags">
+              <span>Python</span><span>AI</span><span>Stellar</span><span>Soroban</span><span>Developer Tooling</span>
+            </div>
+            <div class="featured__cta">
+              <a href="https://github.com/AyinkxLab/ai-code-assistant" target="_blank" rel="noopener" class="btn btn--primary">
+                <i class="fa-brands fa-github"></i> View on GitHub
+              </a>
+              <a href="#projects" class="btn btn--outline">
+                <i class="fa-solid fa-diagram-project"></i> All Projects
+              </a>
+            </div>
+          </div>
+
+          <div class="featured__visual" aria-hidden="true">
+            <div class="terminal terminal--mini">
+              <div class="terminal__bar">
+                <span class="terminal__dot" style="--c:#ff5f56"></span>
+                <span class="terminal__dot" style="--c:#ffbd2e"></span>
+                <span class="terminal__dot" style="--c:#27c93f"></span>
+                <span class="terminal__title">ai-code-assistant</span>
+              </div>
+              <div class="terminal__body">
+                <p class="terminal__line"><span class="terminal__prompt">$</span> <span class="terminal__cmd" data-line="ai-code-assistant info">ai-code-assistant info</span></p>
+                <p class="terminal__out">
+                  <span class="code-key">project</span>   : ai-code-assistant<br />
+                  <span class="code-key">language</span>  : Python<br />
+                  <span class="code-key">focus</span>     : developer tooling<br />
+                  <span class="code-key">domain</span>    : Stellar / Soroban<br />
+                  <span class="code-key">license</span>   : open source
+                </p>
+                <p class="terminal__line"><span class="terminal__prompt">$</span> <span class="terminal__cursor"></span></p>
+              </div>
+            </div>
+            <span class="featured__scan"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PROJECTS ===================== -->
+    <section class="section" id="projects">
+      <div class="container">
+        <p class="section__eyebrow reveal">03 — Work</p>
+        <h2 class="section__title reveal">Featured Projects</h2>
+
+        <div class="filters reveal" id="filters" aria-label="Filter projects"></div>
+        <div class="projects" id="projectsGrid"></div>
+
+        <div class="projects__more reveal">
+          <a href="https://github.com/Ayinkx?tab=repositories" target="_blank" rel="noopener" class="btn btn--outline">
+            <i class="fa-brands fa-github"></i> See all repositories
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== TECH STACK ===================== -->
+    <section class="section" id="skills">
+      <div class="container">
+        <p class="section__eyebrow reveal">04 — Tech Stack</p>
+        <h2 class="section__title reveal">Tools I build with</h2>
+
+        <div class="stack reveal">
+          <div class="stack__orbit" id="stackOrbit" aria-label="Technology stack">
+            <div class="stack__ring" aria-hidden="true"></div>
+            <div class="stack__ring stack__ring--2" aria-hidden="true"></div>
+            <span class="stack__core" aria-hidden="true">AYINKX</span>
+            <button class="stack__node" type="button" aria-label="Python" data-tech="Python" data-desc="Primary language for backend services, automation and developer tooling." style="--a:0deg">
+              <span class="stack__face"><i class="fa-brands fa-python" aria-hidden="true"></i><span>Python</span></span>
+            </button>
+            <button class="stack__node" type="button" aria-label="FastAPI" data-tech="FastAPI" data-desc="Modern, async Python framework I use to build REST APIs and backend services." style="--a:45deg">
+              <span class="stack__face"><i class="fa-solid fa-bolt" aria-hidden="true"></i><span>FastAPI</span></span>
+            </button>
+            <button class="stack__node" type="button" aria-label="Flask" data-tech="Flask" data-desc="Lightweight Python framework for APIs, services and the Flask REST API boilerplate." style="--a:90deg">
+              <span class="stack__face"><i class="fa-solid fa-pepper-hot" aria-hidden="true"></i><span>Flask</span></span>
+            </button>
+            <button class="stack__node" type="button" aria-label="SQL" data-tech="SQL" data-desc="Relational data modelling and queries with SQL, PostgreSQL, MySQL and SQLite." style="--a:135deg">
+              <span class="stack__face"><i class="fa-solid fa-database" aria-hidden="true"></i><span>SQL</span></span>
+            </button>
+            <button class="stack__node" type="button" aria-label="Docker" data-tech="Docker" data-desc="Containerising apps and services for reproducible local and production environments." style="--a:180deg">
+              <span class="stack__face"><i class="fa-brands fa-docker" aria-hidden="true"></i><span>Docker</span></span>
+            </button>
+            <button class="stack__node" type="button" aria-label="Linux" data-tech="Linux" data-desc="Daily development and server environment — shell, tooling and deployment basics." style="--a:225deg">
+              <span class="stack__face"><i class="fa-brands fa-linux" aria-hidden="true"></i><span>Linux</span></span>
+            </button>
+            <button class="stack__node" type="button" aria-label="Git" data-tech="Git" data-desc="Version control and collaboration workflows across personal and open-source projects." style="--a:270deg">
+              <span class="stack__face"><i class="fa-brands fa-git-alt" aria-hidden="true"></i><span>Git</span></span>
+            </button>
+            <button class="stack__node" type="button" aria-label="REST APIs" data-tech="REST APIs" data-desc="Designing, integrating and documenting REST APIs with validation and clear contracts." style="--a:315deg">
+              <span class="stack__face"><i class="fa-solid fa-plug" aria-hidden="true"></i><span>REST APIs</span></span>
+            </button>
+          </div>
+
+          <div class="stack__info" id="stackInfo" role="status" aria-live="polite">
+            <p class="stack__info-default">Hover or focus a technology to see how I use it.</p>
+          </div>
+        </div>
+
+        <div class="skills__tags reveal" data-delay="120">
+          <div class="tag-group">
+            <h3>Backend</h3>
+            <div class="chips">
+              <span class="chip">Python</span><span class="chip">FastAPI</span>
+              <span class="chip">Flask</span><span class="chip">REST APIs</span>
+            </div>
+          </div>
+          <div class="tag-group">
+            <h3>Data &amp; APIs</h3>
+            <div class="chips">
+              <span class="chip">SQL</span><span class="chip">PostgreSQL</span>
+              <span class="chip">MySQL</span><span class="chip">API integration</span>
+              <span class="chip">Validation</span>
+            </div>
+          </div>
+          <div class="tag-group">
+            <h3>Automation</h3>
+            <div class="chips">
+              <span class="chip">Python scripting</span><span class="chip">Background jobs</span>
+              <span class="chip">Scheduling</span><span class="chip">Workflow automation</span>
+            </div>
+          </div>
+          <div class="tag-group">
+            <h3>Development &amp; Delivery</h3>
+            <div class="chips">
+              <span class="chip">Docker</span><span class="chip">Linux</span>
+              <span class="chip">Bash</span><span class="chip">Git</span>
+              <span class="chip">GitHub</span><span class="chip">Postman</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== OPEN SOURCE ===================== -->
+    <section class="section" id="opensource">
+      <div class="container">
+        <p class="section__eyebrow reveal">05 — Open Source</p>
+        <h2 class="section__title reveal">Building in the open</h2>
+
+        <p class="os-intro reveal">
+          Open source is a major part of how I learn and build. I work on practical developer tools,
+          backend systems and blockchain-related tooling, with a focus on writing useful code,
+          improving documentation, testing features and contributing to real projects.
+        </p>
+
+        <div class="gh-stats reveal">
+          <div class="gh-stat">
+            <span class="gh-stat__num" id="osRepos" data-target="0">—</span>
+            <span class="gh-stat__label"><i class="fa-solid fa-folder-tree"></i> Public Repositories</span>
+          </div>
+          <div class="gh-stat">
+            <span class="gh-stat__num" id="osStars" data-target="0">—</span>
+            <span class="gh-stat__label"><i class="fa-solid fa-star"></i> Stars Earned</span>
+          </div>
+          <div class="gh-stat">
+            <span class="gh-stat__num" id="osFollowers" data-target="0">—</span>
+            <span class="gh-stat__label"><i class="fa-solid fa-users"></i> Followers</span>
+          </div>
+        </div>
+
+        <div class="repo-grid reveal" id="repoGrid" aria-live="polite">
+          <p class="repo-fallback" id="repoFallback">Loading repositories…</p>
+        </div>
+
+        <div class="projects__more reveal">
+          <a href="https://github.com/Ayinkx" target="_blank" rel="noopener" class="btn btn--outline">
+            <i class="fa-brands fa-github"></i> GitHub Profile
+          </a>
+          <a href="https://github.com/Ayinkx?tab=repositories" target="_blank" rel="noopener" class="btn btn--primary">
+            <i class="fa-solid fa-code-branch"></i> All Repositories
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- ===================== ABOUT ===================== -->
     <section class="section" id="about">
       <div class="container">
-        <p class="section__eyebrow reveal">01 — About</p>
+        <p class="section__eyebrow reveal">06 — About</p>
         <h2 class="section__title reveal">Get to know me</h2>
 
         <div class="about">
@@ -264,96 +528,11 @@
       </div>
     </section>
 
-    <!-- ===================== SKILLS ===================== -->
-    <section class="section" id="skills">
-      <div class="container">
-        <p class="section__eyebrow reveal">02 — Skills</p>
-        <h2 class="section__title reveal">Tech I work with</h2>
-
-        <div class="skills">
-          <div class="skills__bars reveal">
-            <div class="tag-group">
-              <h3>Backend</h3>
-              <div class="chips">
-                <span class="chip">Python</span><span class="chip">FastAPI</span>
-                <span class="chip">Flask</span><span class="chip">REST APIs</span>
-              </div>
-            </div>
-            <div class="tag-group">
-              <h3>Data &amp; APIs</h3>
-              <div class="chips">
-                <span class="chip">SQL</span><span class="chip">PostgreSQL</span>
-                <span class="chip">MySQL</span><span class="chip">API integration</span>
-                <span class="chip">Validation</span>
-              </div>
-            </div>
-            <div class="tag-group">
-              <h3>Automation</h3>
-              <div class="chips">
-                <span class="chip">Python scripting</span><span class="chip">Background jobs</span>
-                <span class="chip">Scheduling</span><span class="chip">Workflow automation</span>
-              </div>
-            </div>
-            <div class="tag-group">
-              <h3>Development &amp; Delivery</h3>
-              <div class="chips">
-                <span class="chip">Docker</span><span class="chip">Linux</span>
-                <span class="chip">Bash</span><span class="chip">Git</span>
-                <span class="chip">GitHub</span><span class="chip">Postman</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="skills__tags reveal" data-delay="120">
-            <div class="tag-group">
-              <h3>Languages</h3>
-              <div class="chips">
-                <span class="chip">Python</span><span class="chip">JavaScript</span>
-                <span class="chip">HTML5</span><span class="chip">CSS3</span><span class="chip">SQL</span>
-              </div>
-            </div>
-            <div class="tag-group">
-              <h3>Frameworks &amp; Tools</h3>
-              <div class="chips">
-                <span class="chip">Flask</span><span class="chip">FastAPI</span><span class="chip">REST API</span>
-                <span class="chip">Docker</span><span class="chip">Git</span><span class="chip">GitHub</span>
-                <span class="chip">Postman</span><span class="chip">MySQL</span>
-              </div>
-            </div>
-            <div class="tag-group">
-              <h3>Environment</h3>
-              <div class="chips">
-                <span class="chip">Linux</span><span class="chip">Bash</span>
-                <span class="chip">VS Code</span><span class="chip">Markdown</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== PROJECTS ===================== -->
-    <section class="section" id="projects">
-      <div class="container">
-        <p class="section__eyebrow reveal">03 — Work</p>
-        <h2 class="section__title reveal">Featured Projects</h2>
-
-        <div class="filters reveal" id="filters" aria-label="Filter projects"></div>
-        <div class="projects" id="projectsGrid"></div>
-
-        <div class="projects__more reveal">
-          <a href="https://github.com/Ayinkx?tab=repositories" target="_blank" rel="noopener" class="btn btn--outline">
-            <i class="fa-brands fa-github"></i> See all repositories
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== CREATIVE ===================== -->
+    <!-- ===================== BEYOND CODE ===================== -->
     <section class="section" id="creative">
       <div class="container">
-        <p class="section__eyebrow reveal">04 — Beyond Code</p>
-        <h2 class="section__title reveal">Music &amp; Content</h2>
+        <p class="section__eyebrow reveal">07 — Life</p>
+        <h2 class="section__title reveal">Beyond Code</h2>
 
         <p class="creative__intro reveal">
           Beyond code, I create as <strong>Ayinkx</strong> — a Nigerian musician, producer and content
@@ -364,8 +543,8 @@
           <!-- Music -->
           <article class="creative__card reveal">
             <div class="creative__icon creative__icon--music"><i class="fa-solid fa-music"></i></div>
-            <h3>🎧 Music</h3>
-            <p>Love songs, chill vibes and real stories — blending soulful rhythm with honest songwriting.</p>
+            <h3>🎧 Music &amp; Production</h3>
+            <p>Creative work, music production and experimentation — love songs, chill vibes and real stories.</p>
             <ul class="creative__list">
               <li><i class="fa-solid fa-compact-disc"></i> No Hard Feelings</li>
               <li><i class="fa-solid fa-compact-disc"></i> Give It All</li>
@@ -383,8 +562,8 @@
           <!-- Content -->
           <article class="creative__card reveal" data-delay="120">
             <div class="creative__icon creative__icon--content"><i class="fa-solid fa-video"></i></div>
-            <h3>⚡ Content Creation</h3>
-            <p>Viral reaction videos and live streams — entertaining, honest and community-driven.</p>
+            <h3>⚡ Content &amp; Community</h3>
+            <p>Content creation and digital community building — viral reaction videos and live streams.</p>
             <div class="creative__stats">
               <div><strong class="count" data-count="30" data-suffix="K+">0</strong><span>Instagram followers</span></div>
               <div><strong class="count" data-count="5" data-suffix="+">0</strong><span>Platforms</span></div>
@@ -448,7 +627,7 @@
     <!-- ===================== TESTIMONIALS ===================== -->
     <section class="section" id="testimonials">
       <div class="container">
-        <p class="section__eyebrow reveal">05 — Kind Words</p>
+        <p class="section__eyebrow reveal">08 — Kind Words</p>
         <h2 class="section__title reveal">What people say</h2>
 
         <div class="quotes">
@@ -486,8 +665,28 @@
     <!-- ===================== EXPERIENCE ===================== -->
     <section class="section" id="experience">
       <div class="container">
-        <p class="section__eyebrow reveal">06 — Journey</p>
+        <p class="section__eyebrow reveal">09 — Journey</p>
         <h2 class="section__title reveal">Experience &amp; Timeline</h2>
+
+        <div class="journey reveal">
+          <div class="journey__step">
+            <span class="journey__num">01</span>
+            <h3>Self-Taught Developer</h3>
+            <p>Python &amp; backend fundamentals, learned by building.</p>
+          </div>
+          <span class="journey__arrow" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span>
+          <div class="journey__step">
+            <span class="journey__num">02</span>
+            <h3>Open Source</h3>
+            <p>Developer tooling &amp; APIs, contributing in the open.</p>
+          </div>
+          <span class="journey__arrow" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span>
+          <div class="journey__step">
+            <span class="journey__num">03</span>
+            <h3>Current Focus</h3>
+            <p>Backend engineering + automation + open source.</p>
+          </div>
+        </div>
 
         <div class="timeline" id="timeline">
           <!-- Edit these entries in script.js (EXPERIENCE array) -->
@@ -495,10 +694,43 @@
       </div>
     </section>
 
+    <!-- ===================== CURRENTLY BUILDING ===================== -->
+    <section class="section" id="building">
+      <div class="container">
+        <p class="section__eyebrow reveal">10 — In Progress</p>
+        <h2 class="section__title reveal">Currently building</h2>
+
+        <div class="building">
+          <article class="building-card reveal">
+            <div class="building-card__head">
+              <span class="building-card__pulse" aria-hidden="true"></span>
+              <h3>AI Code Assistant</h3>
+            </div>
+            <p>Developer tooling + AI + Open Source</p>
+            <div class="building-card__tags"><span>Python</span><span>AI</span><span>Stellar</span><span>Soroban</span></div>
+            <a class="building-card__link" href="https://github.com/AyinkxLab/ai-code-assistant" target="_blank" rel="noopener">
+              View repository <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </article>
+          <article class="building-card reveal" data-delay="120">
+            <div class="building-card__head">
+              <span class="building-card__pulse" aria-hidden="true"></span>
+              <h3>Social Autopilot</h3>
+            </div>
+            <p>Backend automation + social APIs</p>
+            <div class="building-card__tags"><span>FastAPI</span><span>SQL</span><span>APScheduler</span><span>Docker</span></div>
+            <a class="building-card__link" href="https://github.com/AyinkxLab/social-autopilot" target="_blank" rel="noopener">
+              View repository <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- ===================== NOTES ===================== -->
     <section class="section" id="notes">
       <div class="container">
-        <p class="section__eyebrow reveal">07 — Notes</p>
+        <p class="section__eyebrow reveal">11 — Notes</p>
         <h2 class="section__title reveal">From the journal</h2>
 
         <div class="posts">
@@ -527,7 +759,7 @@
     <!-- ===================== CONTACT ===================== -->
     <section class="section" id="contact">
       <div class="container">
-        <p class="section__eyebrow reveal">08 — Contact</p>
+        <p class="section__eyebrow reveal">12 — Contact</p>
         <h2 class="section__title reveal">Let's build something</h2>
 
         <div class="contact">
