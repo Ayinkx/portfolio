@@ -9,8 +9,9 @@ const ROLES = [
   "Python Developer",
   "Backend Developer",
   "Open Source Contributor",
+  "Musician & Producer",
+  "Content Creator",
   "Flask & REST API Enthusiast",
-  "Automation Builder",
 ];
 
 const PROJECTS = [
@@ -41,6 +42,51 @@ const PROJECTS = [
     github: "https://github.com/Ayinkx?tab=repositories",
     demo: "",
   },
+  {
+    title: "AI Code Assistant",
+    desc: "Open-source AI coding assistant with read-only Stellar/Soroban tooling — XDR & transaction decoding, RPC/Horizon inspection, contract scaffolds and a plugin system.",
+    icon: "fa-solid fa-robot",
+    category: "AI",
+    tags: ["Python", "AI", "Stellar", "Soroban"],
+    github: "https://github.com/AyinkxLab/ai-code-assistant",
+    demo: "",
+  },
+  {
+    title: "Soroban Security Scanner",
+    desc: "Deterministic security analysis for Stellar Soroban smart contracts and Rust projects — catching risky patterns before they ship.",
+    icon: "fa-solid fa-shield-halved",
+    category: "Security",
+    tags: ["Rust", "Security", "Soroban", "Stellar"],
+    github: "https://github.com/AyinkxLab/soroban-security-scanner",
+    demo: "",
+  },
+  {
+    title: "Social Autopilot",
+    desc: "Self-hosted MVP that publishes one post to many social platforms — Post Now or Schedule. FastAPI + SQLite + APScheduler, with a clearly-labelled Demo Mode.",
+    icon: "fa-solid fa-share-nodes",
+    category: "Backend",
+    tags: ["Python", "FastAPI", "SQLite", "Automation"],
+    github: "https://github.com/AyinkxLab/social-autopilot",
+    demo: "",
+  },
+  {
+    title: "Stellar DevKit",
+    desc: "Developer infrastructure toolkit for Stellar and Soroban — RPC, XDR/SCVal inspection, fixtures, analysis and a CLI.",
+    icon: "fa-solid fa-toolbox",
+    category: "Tooling",
+    tags: ["Python", "Stellar", "Soroban", "CLI"],
+    github: "https://github.com/StellarFoundry/stellar-devkit",
+    demo: "",
+  },
+  {
+    title: "Stellar Contract Platform",
+    desc: "Contract intelligence for Stellar and Soroban — inspection, interface analysis, compatibility and deployment verification.",
+    icon: "fa-solid fa-cubes",
+    category: "Tooling",
+    tags: ["Rust", "Stellar", "Soroban", "Tooling"],
+    github: "https://github.com/StellarFoundry/stellar-contract-platform",
+    demo: "",
+  },
   /* Add more projects here 👇
   {
     title: "Project Name",
@@ -68,6 +114,20 @@ const EXPERIENCE = [
     org: "Freelance / Personal projects",
     desc: "Designing and building Flask REST APIs, automation scripts and backend services with a focus on clean, reliable code.",
     tags: ["Python", "Flask", "REST API", "SQL"],
+  },
+  {
+    date: "2023 — Present",
+    role: "Recording Artist & Producer",
+    org: "Independent · Ayinkx",
+    desc: "Nigerian artist blending love songs, chill vibes and real stories. Released singles like “No Hard Feelings”, “Give It All” and “Suffering” on all major streaming platforms.",
+    tags: ["Music", "Songwriting", "Production"],
+  },
+  {
+    date: "2022 — Present",
+    role: "Content Creator (Reactions & Streams)",
+    org: "@ayinkxreacts",
+    desc: "Built an audience around viral reaction videos and live streams — growing a community across Instagram, YouTube, TikTok, Facebook and X.",
+    tags: ["Content Creation", "Video", "Community"],
   },
   {
     date: "2022 — Present",
